@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,7 @@ import org.schabi.newpipe.playlist.PlayQueueItemHolder;
 import org.schabi.newpipe.util.Localization;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.ThemeHelper;
+import org.schabi.newpipe.util.Utils;
 
 import static org.schabi.newpipe.player.helper.PlayerHelper.formatPitch;
 import static org.schabi.newpipe.player.helper.PlayerHelper.formatSpeed;
@@ -114,6 +116,7 @@ public abstract class ServicePlayerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         ThemeHelper.setTheme(this);
         setContentView(R.layout.activity_player_queue_control);
+        Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
         rootView = findViewById(R.id.main_content);
 
         final Toolbar toolbar = rootView.findViewById(R.id.toolbar);

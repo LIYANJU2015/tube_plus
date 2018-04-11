@@ -8,6 +8,11 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true">
 
+    <View
+        android:background="@drawable/toolbar_shadow_light"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
     <com.nirhart.parallaxscroll.views.ParallaxScrollView
         android:id="@+id/detail_main_content"
         android:layout_width="match_parent"

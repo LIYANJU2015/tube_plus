@@ -2,9 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/light_youtube_primary_color</item>
-        <item name="colorPrimaryDark">@color/light_youtube_dark_color</item>
-        <item name="colorAccent">@color/light_youtube_accent_color</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/light_youtube_primary_color</item>
         <item name="android:windowBackground">@color/light_background_color</item>
 
         <item name="thumbs_up">@drawable/ic_thumb_up_black_24dp</item>
@@ -27,7 +27,7 @@
         <item name="history">@drawable/ic_history_black_24dp</item>
         <item name="drag_handle">@drawable/ic_drag_handle_black_24dp</item>
         <item name="selected">@drawable/ic_fiber_manual_record_black_24dp</item>
-        <item name="search_add">@drawable/ic_arrow_top_left_black_24dp</item>
+        <item name="search_add">@drawable/ic_arrow_top_left</item>
         <item name="options">@drawable/ic_more_vert_black_24dp</item>
 
         <item name="separator_color">@color/light_separator_color</item>
@@ -39,6 +39,12 @@
 
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
+
+    <style name="apptheme_toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">#757575</item>
+    </style>
+
+
 
     <!-- Dark Theme-->
     <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar">

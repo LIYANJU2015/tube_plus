@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Light Theme -->
-    <color name="light_background_color">#EEEEEE</color>
+    <color name="light_background_color">#FFFFFF</color>
     <color name="light_youtube_primary_color">#e53935</color>
     <color name="light_youtube_dark_color">#d32f2f</color>
     <color name="light_youtube_accent_color">#000000</color>
@@ -66,6 +66,8 @@
     <color name="light_gray">#EFEFEF</color>
     <color name="middle_gray">#E0E0E0</color>
     <color name="gray">#616161</color>
+
+    <color name="color_cccccc">#cccccc</color>
 
     <color name="black">#000</color>
 

@@ -3,6 +3,7 @@ package org.schabi.newpipe.settings;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.util.ThemeHelper;
+import org.schabi.newpipe.util.Utils;
 
 
 /*
@@ -46,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity implements BasePreferenc
         ThemeHelper.setTheme(this);
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.settings_layout);
+        Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -57,6 +57,8 @@ public class App extends Application {
     @SuppressWarnings("unchecked")
     private static final Class<? extends ReportSenderFactory>[] reportSenderFactoryClasses = new Class[]{AcraReportSenderFactory.class};
 
+    public static Context sContext;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -67,6 +69,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sContext = this;
 
         // Initialize settings first because others inits can use its values
         SettingsActivity.initSettings(this);

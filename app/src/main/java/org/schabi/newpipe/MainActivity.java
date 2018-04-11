@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -57,6 +58,7 @@ import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.StateSaver;
 import org.schabi.newpipe.util.ThemeHelper;
+import org.schabi.newpipe.util.Utils;
 
 import java.util.Date;
 
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
         ThemeHelper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
 
         if (getSupportFragmentManager() != null && getSupportFragmentManager().getBackStackEntryCount() == 0) {
             initFragments();

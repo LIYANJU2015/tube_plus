@@ -13,17 +13,7 @@ public class ThemeHelper {
      * @param context context that the theme will be applied
      */
     public static void setTheme(Context context) {
-        String lightTheme = context.getResources().getString(R.string.light_theme_key);
-        String darkTheme = context.getResources().getString(R.string.dark_theme_key);
-        String blackTheme = context.getResources().getString(R.string.black_theme_key);
-
-        String selectedTheme = getSelectedTheme(context);
-
-        if (selectedTheme.equals(lightTheme)) context.setTheme(R.style.LightTheme);
-        else if (selectedTheme.equals(blackTheme)) context.setTheme(R.style.BlackTheme);
-        else if (selectedTheme.equals(darkTheme)) context.setTheme(R.style.DarkTheme);
-            // Fallback
-        else context.setTheme(R.style.DarkTheme);
+        context.setTheme(R.style.LightTheme);
     }
 
     /**

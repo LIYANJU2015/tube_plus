@@ -3,6 +3,7 @@ package org.schabi.newpipe.download;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.view.ViewTreeObserver;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.settings.SettingsActivity;
 import org.schabi.newpipe.util.ThemeHelper;
+import org.schabi.newpipe.util.Utils;
 
 import us.shandian.giga.service.DownloadManagerService;
 import us.shandian.giga.ui.fragment.AllMissionsFragment;
@@ -31,6 +33,7 @@ public class DownloadActivity extends AppCompatActivity {
         ThemeHelper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_downloader);
+        Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

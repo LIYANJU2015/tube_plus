@@ -21,6 +21,8 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
             android:background="?attr/colorPrimary"
+            android:theme="@style/apptheme_toolbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="@string/app_name"/>
 

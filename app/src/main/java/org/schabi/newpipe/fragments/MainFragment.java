@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.preference.PreferenceManager;
@@ -88,15 +89,8 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
         int channelIcon;
         int whatsHotIcon;
 
-        if (ThemeHelper.isLightThemeSelected(getActivity())) {
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.light_youtube_primary_color));
-            channelIcon = R.drawable.ic_channel_black_24dp;
-            whatsHotIcon = R.drawable.ic_whatshot_black_24dp;
-        } else {
-            channelIcon = R.drawable.ic_channel_white_24dp;
-            whatsHotIcon = R.drawable.ic_whatshot_white_24dp;
-        }
-
+        channelIcon = R.drawable.channel_selector;
+        whatsHotIcon = R.drawable.whatshot_selector;
 
         if (PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .getString(getString(R.string.main_page_content_key), getString(R.string.blank_page_key))
@@ -115,7 +109,8 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (DEBUG) Log.d(TAG, "onCreateOptionsMenu() called with: menu = [" + menu + "], inflater = [" + inflater + "]");
+        if (DEBUG)
+            Log.d(TAG, "onCreateOptionsMenu() called with: menu = [" + menu + "], inflater = [" + inflater + "]");
         inflater.inflate(R.menu.main_fragment_menu, menu);
         SubMenu kioskMenu = menu.addSubMenu(getString(R.string.kiosk));
         try {
@@ -176,7 +171,7 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    if(PreferenceManager.getDefaultSharedPreferences(getActivity())
+                    if (PreferenceManager.getDefaultSharedPreferences(getActivity())
                             .getString(getString(R.string.main_page_content_key), getString(R.string.blank_page_key))
                             .equals(getString(R.string.subscription_page_key))) {
                         return new SubscriptionFragment();
@@ -198,7 +193,7 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
 
         @Override
         public int getCount() {
-            if(PreferenceManager.getDefaultSharedPreferences(getActivity())
+            if (PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getString(getString(R.string.main_page_content_key), getString(R.string.blank_page_key))
                     .equals(getString(R.string.subscription_page_key))) {
                 return 1;
@@ -217,10 +212,10 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
             SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(getActivity());
             final String setMainPage = preferences.getString(getString(R.string.main_page_content_key),
-                            getString(R.string.main_page_selectd_kiosk_id));
-            if(setMainPage.equals(getString(R.string.blank_page_key))) {
+                    getString(R.string.main_page_selectd_kiosk_id));
+            if (setMainPage.equals(getString(R.string.blank_page_key))) {
                 return new BlankFragment();
-            } else if(setMainPage.equals(getString(R.string.kiosk_page_key))) {
+            } else if (setMainPage.equals(getString(R.string.kiosk_page_key))) {
                 int serviceId = preferences.getInt(getString(R.string.main_page_selected_service),
                         FALLBACK_SERVICE_ID);
                 String kioskId = preferences.getString(getString(R.string.main_page_selectd_kiosk_id),
@@ -229,11 +224,11 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
                 );
                 fragment.useAsFrontPage(true);
                 return fragment;
-            } else if(setMainPage.equals(getString(R.string.feed_page_key))) {
+            } else if (setMainPage.equals(getString(R.string.feed_page_key))) {
                 FeedFragment fragment = new FeedFragment();
                 fragment.useAsFrontPage(true);
                 return fragment;
-            } else if(setMainPage.equals(getString(R.string.channel_page_key))) {
+            } else if (setMainPage.equals(getString(R.string.channel_page_key))) {
                 int serviceId = preferences.getInt(getString(R.string.main_page_selected_service),
                         FALLBACK_SERVICE_ID);
                 String url = preferences.getString(getString(R.string.main_page_selected_channel_url),
@@ -266,7 +261,7 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
         StreamingService service = NewPipe.getService(currentServiceId);
         KioskList kl = service.getKioskList();
         int i = 0;
-        for(final String ks : kl.getAvailableKiosks()) {
+        for (final String ks : kl.getAvailableKiosks()) {
             menu.add(0, KIOSK_MENU_OFFSET + i, Menu.NONE,
                     KioskTranslator.getTranslatedKioskName(ks, getContext()))
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
