@@ -12,19 +12,17 @@ import org.schabi.newpipe.App;
 
 public class FacebookReport {
 
-    public static void logSentMainPageShow(String service) {
+    public static void logSentMainPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
-        bundle.putString("service", service);
         bundle.putString("bgPlayer", App.isBgPlay() ? "true" : "false");
         bundle.putString("isSuper", App.isSuper() ? "true" : "false");
         logger.logEvent("MainPageShow", bundle);
     }
 
-    public static void logSentSearchPageShow(String service) {
+    public static void logSentSearchPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
-        bundle.putString("service", service);
         bundle.putString("bgPlayer", App.isBgPlay() ? "true" : "false");
         bundle.putString("isSuper", App.isSuper() ? "true" : "false");
         logger.logEvent("SearchPageShow", bundle);

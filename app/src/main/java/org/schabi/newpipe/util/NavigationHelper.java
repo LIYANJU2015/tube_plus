@@ -94,11 +94,13 @@ public class NavigationHelper {
         }
         Toast.makeText(activity, R.string.popup_playing_toast, Toast.LENGTH_SHORT).show();
         activity.startService(getPlayerIntent(activity, PopupVideoPlayer.class, queue));
+        FacebookReport.logSentPopupPageShow();
     }
 
     public static void playOnBackgroundPlayer(final Context context, final PlayQueue queue) {
         Toast.makeText(context, R.string.background_player_playing_toast, Toast.LENGTH_SHORT).show();
         context.startService(getPlayerIntent(context, BackgroundPlayer.class, queue));
+        FacebookReport.logSentBackgroudPlayerPageShow();
     }
 
     public static void enqueueOnPopupPlayer(final Activity activity, final PlayQueue queue) {
@@ -108,11 +110,13 @@ public class NavigationHelper {
         }
         Toast.makeText(activity, R.string.popup_playing_append, Toast.LENGTH_SHORT).show();
         activity.startService(getPlayerEnqueueIntent(activity, PopupVideoPlayer.class, queue));
+        FacebookReport.logSentPopupPageShow();
     }
 
     public static void enqueueOnBackgroundPlayer(final Context context, final PlayQueue queue) {
         Toast.makeText(context, R.string.background_player_append, Toast.LENGTH_SHORT).show();
         context.startService(getPlayerEnqueueIntent(context, BackgroundPlayer.class, queue));
+        FacebookReport.logSentBackgroudPlayerPageShow();
     }
     /*//////////////////////////////////////////////////////////////////////////
     // Through FragmentManager

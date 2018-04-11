@@ -53,6 +53,7 @@ import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.AnimationUtils;
 import org.schabi.newpipe.util.ExtractorHelper;
 import org.schabi.newpipe.util.FBAdUtils;
+import org.schabi.newpipe.util.FacebookReport;
 import org.schabi.newpipe.util.LayoutManagerSmoothScroller;
 import org.schabi.newpipe.util.NavigationHelper;
 
@@ -181,6 +182,8 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         isSuggestionsEnabled = preferences.getBoolean(getString(R.string.show_search_suggestions_key), true);
         contentCountry = preferences.getString(getString(R.string.content_country_key), getString(R.string.default_country_value));
+
+        FacebookReport.logSentSearchPageShow();
     }
 
     @Override

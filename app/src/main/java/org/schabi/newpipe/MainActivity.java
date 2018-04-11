@@ -56,6 +56,7 @@ import org.schabi.newpipe.fragments.list.search.SearchFragment;
 import org.schabi.newpipe.history.HistoryListener;
 import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.FBAdUtils;
+import org.schabi.newpipe.util.FacebookReport;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.StateSaver;
 import org.schabi.newpipe.util.ThemeHelper;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
         initHistory();
 
         FBAdUtils.showAdDialog(this, Constants.FB_NATIVE_AD);
+
+        FacebookReport.logSentMainPageShow();
     }
 
     @Override
