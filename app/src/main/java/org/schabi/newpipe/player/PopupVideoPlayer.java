@@ -30,6 +30,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -54,6 +56,7 @@ import android.widget.Toast;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.BuildConfig;
 import org.schabi.newpipe.MainActivity;
 import org.schabi.newpipe.R;
@@ -197,11 +200,14 @@ public final class PopupVideoPlayer extends Service {
     // Init
     //////////////////////////////////////////////////////////////////////////*/
 
+    private View youtubeIconView;
+
     @SuppressLint("RtlHardcoded")
     private void initPopup() {
         if (DEBUG) Log.d(TAG, "initPopup() called");
         View rootView = View.inflate(this, R.layout.player_popup, null);
         playerImpl.setup(rootView);
+        youtubeIconView = rootView.findViewById(R.id.youtube_icon);
 
         shutdownFlingVelocity = PlayerHelper.getShutdownFlingVelocity(this);
         tossFlingVelocity = PlayerHelper.getTossFlingVelocity(this);
@@ -235,6 +241,11 @@ public final class PopupVideoPlayer extends Service {
         playerImpl.getLoadingPanel().setMinimumWidth(windowLayoutParams.width);
         playerImpl.getLoadingPanel().setMinimumHeight(windowLayoutParams.height);
         windowManager.addView(rootView, windowLayoutParams);
+
+        if (!App.sPreferences.getBoolean("popup_tips", false)) {
+            App.sPreferences.edit().putBoolean("popup_tips", true).apply();
+            Toast.makeText(getApplication(), R.string.popup_drag_tips, Toast.LENGTH_LONG).show();
+        }
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -615,6 +626,9 @@ public final class PopupVideoPlayer extends Service {
                     enableVideoRenderer(true);
                     break;
                 case Intent.ACTION_SCREEN_OFF:
+                    if (!App.isBgPlay()) {
+                        onVideoPlayPause();
+                    }
                     enableVideoRenderer(false);
                     break;
             }
@@ -798,8 +812,29 @@ public final class PopupVideoPlayer extends Service {
             return false;
         }
 
+        private Rect rect = new Rect();
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            if (youtubeIconView != null && playerImpl != null
+                    && youtubeIconView.getVisibility() == View.VISIBLE) {
+                youtubeIconView.getHitRect(rect);
+                if (rect.contains((int)event.getX(), (int)event.getY())) {
+                    try {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(playerImpl.getVideoUrl()));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                } else {
+                    youtubeIconView.setVisibility(View.GONE);
+                }
+            }
+
             gestureDetector.onTouchEvent(event);
             if (playerImpl == null) return false;
             if (event.getPointerCount() == 2 && !isResizing) {

@@ -12,8 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 
+import com.facebook.ads.Ad;
+
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.settings.SettingsActivity;
+import org.schabi.newpipe.util.Constants;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.Utils;
 
@@ -53,6 +57,23 @@ public class DownloadActivity extends AppCompatActivity {
                 getWindow().getDecorView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
+
+        FBAdUtils.interstitialLoad(Constants.FB_CHAPING_AD, new FBAdUtils.FBInterstitialAdListener(){
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                super.onInterstitialDismissed(ad);
+                FBAdUtils.destoryInterstitial();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (FBAdUtils.isInterstitialLoaded()) {
+            FBAdUtils.showInterstitial();
+        }
+        FBAdUtils.destoryInterstitial();
     }
 
     private void updateFragments() {

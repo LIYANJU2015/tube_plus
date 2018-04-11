@@ -55,6 +55,7 @@ import org.schabi.newpipe.fragments.detail.VideoDetailFragment;
 import org.schabi.newpipe.fragments.list.search.SearchFragment;
 import org.schabi.newpipe.history.HistoryListener;
 import org.schabi.newpipe.util.Constants;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.StateSaver;
 import org.schabi.newpipe.util.ThemeHelper;
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         initHistory();
+
+        FBAdUtils.showAdDialog(this, Constants.FB_NATIVE_AD);
     }
 
     @Override
@@ -180,7 +183,11 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
             findViewById(R.id.toolbar).findViewById(R.id.toolbar_search_container).setVisibility(View.GONE);
 
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.main_menu, menu);
+            if (App.isSuper()) {
+                inflater.inflate(R.menu.main_menu, menu);
+            } else {
+                inflater.inflate(R.menu.main_menu2, menu);
+            }
         }
 
         ActionBar actionBar = getSupportActionBar();

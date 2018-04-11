@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    android:id="@+id/menu_video_options"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_screen_rotation_75"
+        android:id="@+id/toggleOrientation"
+        android:title="@string/toggle_orientation"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:icon="@drawable/ic_fullscreen_exit_75"
+        android:id="@+id/switchPopup"
+        android:title="@string/switch_to_popup"
+        app:showAsAction="always|withText" />
+
+</menu>
+

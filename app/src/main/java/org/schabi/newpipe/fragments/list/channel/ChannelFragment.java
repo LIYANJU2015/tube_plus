@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.view.RxView;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.database.subscription.SubscriptionEntity;
 import org.schabi.newpipe.extractor.ListExtractor;
@@ -145,6 +146,11 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
         headerPlayAllButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_all_button);
         headerPopupButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_popup_button);
         headerBackgroundButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_bg_button);
+
+        if (!App.isBgPlay()) {
+            headerRootLayout.findViewById(R.id.anchorLeft).setVisibility(View.GONE);
+            headerBackgroundButton.setVisibility(View.GONE);
+        }
 
         return headerRootLayout;
     }

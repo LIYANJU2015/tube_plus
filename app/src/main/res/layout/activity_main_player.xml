@@ -292,6 +292,14 @@
                     android:textColor="@android:color/white"
                     tools:ignore="HardcodedText"
                     tools:text="1:23:49"/>
+
+                <ImageView
+                    android:id="@+id/youtube_icon_iv"
+                    android:layout_marginLeft="6dp"
+                    android:visibility="visible"
+                    android:src="@drawable/ic_youtube_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -438,6 +446,7 @@
             tools:ignore="RtlHardcoded"
             tools:text="1:06:29"
             tools:visibility="visible"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

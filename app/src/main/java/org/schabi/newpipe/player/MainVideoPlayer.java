@@ -27,6 +27,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -50,6 +51,7 @@ import android.widget.Toast;
 
 import com.google.android.exoplayer2.Player;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.VideoStream;
@@ -311,6 +313,20 @@ public final class MainVideoPlayer extends Activity {
         }
 
         @Override
+        public void onBroadcastReceived(Intent intent) {
+            super.onBroadcastReceived(intent);
+            if (intent == null || intent.getAction() == null) return;
+            if (DEBUG) Log.d(TAG, "onBroadcastReceived() called with: intent = [" + intent + "]");
+            switch (intent.getAction()) {
+                case Intent.ACTION_SCREEN_OFF:
+                    if (!App.isBgPlay()) {
+                        onVideoPlayPause();
+                    }
+                    break;
+            }
+        }
+
+        @Override
         public void initViews(View rootView) {
             super.initViews(rootView);
             this.titleTextView = rootView.findViewById(R.id.titleTextView);
@@ -326,12 +342,35 @@ public final class MainVideoPlayer extends Activity {
             this.playNextButton = rootView.findViewById(R.id.playNextButton);
             this.moreOptionsButton = rootView.findViewById(R.id.moreOptionsButton);
             this.moreOptionsPopupMenu = new PopupMenu(context, moreOptionsButton);
-            this.moreOptionsPopupMenu.getMenuInflater().inflate(R.menu.menu_videooptions, moreOptionsPopupMenu.getMenu());
+            if (App.isBgPlay()) {
+                this.moreOptionsPopupMenu.getMenuInflater().inflate(R.menu.menu_videooptions, moreOptionsPopupMenu.getMenu());
+            } else {
+                this.moreOptionsPopupMenu.getMenuInflater().inflate(R.menu.menu_videooptions2, moreOptionsPopupMenu.getMenu());
+            }
 
             titleTextView.setSelected(true);
             channelTextView.setSelected(true);
 
             getRootView().setKeepScreenOn(true);
+
+            View youtubeIconIV = rootView.findViewById(R.id.youtube_icon_iv);
+            youtubeIconIV.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    try {
+                        if (playerImpl == null) {
+                            return;
+                        }
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(playerImpl.getVideoUrl()));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         @Override

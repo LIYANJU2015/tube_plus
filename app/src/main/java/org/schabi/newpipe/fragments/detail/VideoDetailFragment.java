@@ -43,10 +43,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.NativeAd;
 import com.nirhart.parallaxscroll.views.ParallaxScrollView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.ReCaptchaActivity;
 import org.schabi.newpipe.download.DownloadDialog;
@@ -75,6 +78,7 @@ import org.schabi.newpipe.report.ErrorActivity;
 import org.schabi.newpipe.report.UserAction;
 import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.ExtractorHelper;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.InfoCache;
 import org.schabi.newpipe.util.ListHelper;
 import org.schabi.newpipe.util.Localization;
@@ -188,6 +192,14 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
 
         showRelatedStreams = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean(getString(R.string.show_next_video_key), true);
         PreferenceManager.getDefaultSharedPreferences(activity).registerOnSharedPreferenceChangeListener(this);
+
+        FBAdUtils.interstitialLoad(Constants.FB_CHAPING_AD, new FBAdUtils.FBInterstitialAdListener(){
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                super.onInterstitialDismissed(ad);
+                FBAdUtils.destoryInterstitial();
+            }
+        });
     }
 
     @Override
@@ -238,6 +250,11 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         spinnerToolbar.setOnItemSelectedListener(null);
         spinnerToolbar.setAdapter(null);
         super.onDestroyView();
+
+        if (FBAdUtils.isInterstitialLoaded()) {
+            FBAdUtils.showInterstitial();
+        }
+        FBAdUtils.destoryInterstitial();
     }
 
     @Override
@@ -257,15 +274,15 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.show_next_video_key))) {
+        if (key.equals(App.sContext.getString(R.string.show_next_video_key))) {
             showRelatedStreams = sharedPreferences.getBoolean(key, true);
             updateFlags |= RELATED_STREAMS_UPDATE_FLAG;
-        } else if (key.equals(getString(R.string.default_video_format_key))
-                || key.equals(getString(R.string.default_resolution_key))
-                || key.equals(getString(R.string.show_higher_resolutions_key))
-                || key.equals(getString(R.string.use_external_video_player_key))) {
+        } else if (key.equals(App.sContext.getString(R.string.default_video_format_key))
+                || key.equals(App.sContext.getString(R.string.default_resolution_key))
+                || key.equals(App.sContext.getString(R.string.show_higher_resolutions_key))
+                || key.equals(App.sContext.getString(R.string.use_external_video_player_key))) {
             updateFlags |= RESOLUTIONS_MENU_UPDATE_FLAG;
-        } else if (key.equals(getString(R.string.show_play_with_kodi_key))) {
+        } else if (key.equals(App.sContext.getString(R.string.show_play_with_kodi_key))) {
             updateFlags |= TOOLBAR_ITEMS_UPDATE_FLAG;
         }
     }
@@ -407,11 +424,14 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
     // Init
     //////////////////////////////////////////////////////////////////////////*/
 
+    private FrameLayout adFrameLayout;
+
     @Override
     protected void initViews(View rootView, Bundle savedInstanceState) {
         super.initViews(rootView, savedInstanceState);
 
         spinnerToolbar = activity.findViewById(R.id.toolbar).findViewById(R.id.toolbar_spinner);
+        adFrameLayout = rootView.findViewById(R.id.fb_ad_frame);
 
         parallaxScrollRootView = rootView.findViewById(R.id.detail_main_content);
 
@@ -427,6 +447,9 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         videoCountView = rootView.findViewById(R.id.detail_view_count_view);
 
         detailControlsBackground = rootView.findViewById(R.id.detail_controls_background);
+        if (!App.isBgPlay()) {
+            detailControlsBackground.setVisibility(View.GONE);
+        }
         detailControlsPopup = rootView.findViewById(R.id.detail_controls_popup);
         appendControlsDetail = rootView.findViewById(R.id.touch_append_detail);
 
@@ -456,6 +479,17 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         actionBarHandler = new ActionBarHandler(activity);
         infoItemBuilder = new InfoItemBuilder(activity);
         setHeightThumbnail();
+
+        if (App.isBgPlay()) {
+            NativeAd nativeAd = FBAdUtils.nextNativieAd();
+            if (nativeAd == null || !nativeAd.isAdLoaded()) {
+                nativeAd = FBAdUtils.getNativeAd();
+            }
+            if (nativeAd != null && nativeAd.isAdLoaded()) {
+                adFrameLayout.removeAllViews();
+                adFrameLayout.addView(FBAdUtils.setUpItemNativeAdView(activity, nativeAd));
+            }
+        }
     }
 
     @Override
@@ -469,7 +503,9 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
 
             @Override
             public void held(StreamInfoItem selectedItem) {
-                showStreamDialog(selectedItem);
+                if (App.isBgPlay()) {
+                    showStreamDialog(selectedItem);
+                }
             }
         });
 
@@ -1104,6 +1140,17 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
             videoCountView.setVisibility(View.VISIBLE);
         } else {
             videoCountView.setVisibility(View.GONE);
+        }
+
+        if (App.isBgPlay()) {
+            NativeAd nativeAd = FBAdUtils.nextNativieAd();
+            if (nativeAd == null || !nativeAd.isAdLoaded()) {
+                nativeAd = FBAdUtils.getNativeAd();
+            }
+            if (nativeAd != null && nativeAd.isAdLoaded()) {
+                adFrameLayout.removeAllViews();
+                adFrameLayout.addView(FBAdUtils.setUpItemNativeAdView(activity, nativeAd));
+            }
         }
 
         if (info.getDislikeCount() == -1 && info.getLikeCount() == -1) {

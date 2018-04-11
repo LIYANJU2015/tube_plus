@@ -30,6 +30,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.ads.NativeAd;
+
 import org.schabi.newpipe.NewPipeDatabase;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.ReCaptchaActivity;
@@ -46,9 +48,11 @@ import org.schabi.newpipe.fragments.BackPressable;
 import org.schabi.newpipe.fragments.list.BaseListFragment;
 import org.schabi.newpipe.history.HistoryListener;
 import org.schabi.newpipe.report.UserAction;
+import org.schabi.newpipe.util.AdViewWrapperAdapter;
 import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.AnimationUtils;
 import org.schabi.newpipe.util.ExtractorHelper;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.LayoutManagerSmoothScroller;
 import org.schabi.newpipe.util.NavigationHelper;
 
@@ -239,6 +243,8 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
         if (DEBUG) Log.d(TAG, "onDestroyView() called");
         unsetSearchListeners();
         super.onDestroyView();
+
+        FBAdUtils.loadAd(Constants.FB_NATIVE_AD);
     }
 
     @Override
@@ -852,6 +858,15 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
     // Search Results
     //////////////////////////////////////////////////////////////////////////*/
 
+    private AdViewWrapperAdapter adViewWrapperAdapter;
+
+    @Override
+    public RecyclerView.Adapter onGetAdapter() {
+        adViewWrapperAdapter = new AdViewWrapperAdapter(infoListAdapter);
+        infoListAdapter.setParentAdapter(adViewWrapperAdapter);
+        return adViewWrapperAdapter;
+    }
+
     @Override
     public void handleResult(@NonNull SearchResult result) {
         if (!result.errors.isEmpty()) {
@@ -862,7 +877,19 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
 
         if (infoListAdapter.getItemsList().size() == 0) {
             if (!result.getResults().isEmpty()) {
-                infoListAdapter.addInfoItemList(result.getResults());
+                NativeAd nativeAd = FBAdUtils.nextNativieAd();
+                if (nativeAd == null || !nativeAd.isAdLoaded()) {
+                    nativeAd = FBAdUtils.getNativeAd();
+                }
+                if (nativeAd != null && nativeAd.isAdLoaded() && result.getResults().size() > 3) {
+                    int offsetStart = adViewWrapperAdapter.getItemCount();
+                    adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
+                            AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
+                    infoListAdapter.addInfoItemList2(result.getResults());
+                    Log.v("xx", "offsetStart: " + (offsetStart + 2));
+                } else {
+                    infoListAdapter.addInfoItemList(result.getResults());
+                }
             } else {
                 infoListAdapter.clearStreamItemList();
                 showEmptyState();
@@ -877,7 +904,19 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
     public void handleNextItems(ListExtractor.NextItemsResult result) {
         showListFooter(false);
         currentPage = Integer.parseInt(result.getNextItemsUrl());
-        infoListAdapter.addInfoItemList(result.getNextItemsList());
+
+        NativeAd nativeAd = FBAdUtils.nextNativieAd();
+        if (nativeAd == null || !nativeAd.isAdLoaded()) {
+            nativeAd = FBAdUtils.getNativeAd();
+        }
+        if (nativeAd != null && nativeAd.isAdLoaded() && result.getNextItemsList().size() > 3) {
+            int offsetStart = adViewWrapperAdapter.getItemCount();
+            adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
+                    AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
+            infoListAdapter.addInfoItemList2(result.getNextItemsList());
+        } else {
+            infoListAdapter.addInfoItemList(result.getNextItemsList());
+        }
 
         if (!result.getErrors().isEmpty()) {
             showSnackBarError(result.getErrors(), UserAction.SEARCHED, NewPipe.getNameOfService(serviceId)

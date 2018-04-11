@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.ListExtractor;
 import org.schabi.newpipe.extractor.NewPipe;
@@ -85,6 +86,11 @@ public class PlaylistFragment extends BaseListInfoFragment<PlaylistInfo> {
         headerPlayAllButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_all_button);
         headerPopupButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_popup_button);
         headerBackgroundButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_bg_button);
+
+        if (!App.isBgPlay()) {
+            headerRootLayout.findViewById(R.id.anchorLeft).setVisibility(View.GONE);
+            headerBackgroundButton.setVisibility(View.GONE);
+        }
 
         return headerRootLayout;
     }

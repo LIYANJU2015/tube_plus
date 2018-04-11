@@ -48,6 +48,7 @@
                     tools:src="@drawable/dummy_thumbnail"/>
 
                 <ImageView
+                    android:elevation="4dp"
                     android:id="@+id/detail_thumbnail_play_button"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
@@ -83,6 +84,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:windowBackground">
+
+                <FrameLayout
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/fb_ad_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <!-- TITLE -->
                 <FrameLayout

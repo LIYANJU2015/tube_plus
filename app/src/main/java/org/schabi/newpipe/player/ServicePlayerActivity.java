@@ -24,9 +24,11 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.facebook.ads.Ad;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.fragments.OnScrollBelowItemsListener;
@@ -34,6 +36,8 @@ import org.schabi.newpipe.player.event.PlayerEventListener;
 import org.schabi.newpipe.playlist.PlayQueueItem;
 import org.schabi.newpipe.playlist.PlayQueueItemBuilder;
 import org.schabi.newpipe.playlist.PlayQueueItemHolder;
+import org.schabi.newpipe.util.Constants;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.Localization;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.ThemeHelper;
@@ -128,6 +132,16 @@ public abstract class ServicePlayerActivity extends AppCompatActivity
 
         serviceConnection = getServiceConnection();
         bind();
+
+        if (App.isBgPlay()) {
+            FBAdUtils.interstitialLoad(Constants.FB_CHAPING_AD, new FBAdUtils.FBInterstitialAdListener(){
+                @Override
+                public void onInterstitialDismissed(Ad ad) {
+                    super.onInterstitialDismissed(ad);
+                    FBAdUtils.destoryInterstitial();
+                }
+            });
+        }
     }
 
     @Override
@@ -175,6 +189,13 @@ public abstract class ServicePlayerActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         unbind();
+
+        if (App.isBgPlay()) {
+            if (FBAdUtils.isInterstitialLoaded()) {
+                FBAdUtils.showInterstitial();
+            }
+            FBAdUtils.destoryInterstitial();
+        }
     }
 
     protected Intent getSwitchIntent(final Class clazz) {

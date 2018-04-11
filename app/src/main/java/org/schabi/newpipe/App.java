@@ -4,23 +4,20 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import org.acra.ACRA;
-import org.acra.config.ACRAConfiguration;
-import org.acra.config.ACRAConfigurationException;
-import org.acra.config.ConfigurationBuilder;
-import org.acra.sender.ReportSenderFactory;
 import org.schabi.newpipe.extractor.NewPipe;
-import org.schabi.newpipe.report.AcraReportSenderFactory;
-import org.schabi.newpipe.report.ErrorActivity;
-import org.schabi.newpipe.report.UserAction;
 import org.schabi.newpipe.settings.SettingsActivity;
+import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.ExtractorHelper;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.StateSaver;
 
 import java.io.IOException;
@@ -32,6 +29,7 @@ import io.reactivex.exceptions.CompositeException;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
+import us.shandian.giga.util.ReferVersions;
 
 /*
  * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org>
@@ -54,25 +52,39 @@ import io.reactivex.plugins.RxJavaPlugins;
 public class App extends Application {
     protected static final String TAG = App.class.toString();
 
-    @SuppressWarnings("unchecked")
-    private static final Class<? extends ReportSenderFactory>[] reportSenderFactoryClasses = new Class[]{AcraReportSenderFactory.class};
-
     public static Context sContext;
+
+    public static SharedPreferences sPreferences;
+
+    public static final String DEEPLINK = "tube_plus://player/343434";
+
+    public static boolean isSuper() {
+        return ReferVersions.isSuper();
+    }
+
+    public static boolean isBgPlay() {
+        return ReferVersions.SuperVersionHandler.isIsBGPlayer();
+    }
+
+    public static void setSuper() {
+        ReferVersions.setSuper();
+    }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-
-        initACRA();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         sContext = this;
+        sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Initialize settings first because others inits can use its values
         SettingsActivity.initSettings(this);
+        FBAdUtils.init(this);
+        FBAdUtils.loadFBAds(Constants.FB_NATIVE_AD);
 
         NewPipe.init(Downloader.getInstance());
         NewPipeDatabase.init(this);
@@ -84,6 +96,34 @@ public class App extends Application {
         ImageLoader.getInstance().init(config);
 
         configureRxJavaErrorHandler();
+
+        if (!sPreferences.getBoolean("add_Shortcut", false)) {
+            sPreferences.edit().putBoolean("add_Shortcut", true).apply();
+            addShortcut(sContext, MainActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
+        }
+    }
+
+    public static void addShortcut(Context context, Class clazz, String appName, int ic_launcher) {
+        Intent shortcut = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+
+        Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
+        shortcutIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        shortcutIntent.putExtra("tName", appName);
+        shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, appName);
+        shortcutIntent.setClassName(context, clazz.getName());
+        //        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // 快捷名称
+        shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, context.getResources().getString(R.string.app_name));
+        // 快捷图标是否允许重复
+        shortcut.putExtra("duplicate", false);
+        shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        // 快捷图标
+        Intent.ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(context, ic_launcher);
+        shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
+        // 发送广播
+        context.sendBroadcast(shortcut);
     }
 
     private void configureRxJavaErrorHandler() {
@@ -117,21 +157,6 @@ public class App extends Application {
                         IOException.class, SocketException.class, InterruptedException.class, InterruptedIOException.class);
             }
         });
-    }
-
-
-    private void initACRA() {
-        try {
-            final ACRAConfiguration acraConfig = new ConfigurationBuilder(this)
-                    .setReportSenderFactoryClasses(reportSenderFactoryClasses)
-                    .setBuildConfigClass(BuildConfig.class)
-                    .build();
-            ACRA.init(this, acraConfig);
-        } catch (ACRAConfigurationException ace) {
-            ace.printStackTrace();
-            ErrorActivity.reportError(this, ace, null, null, ErrorActivity.ErrorInfo.make(UserAction.SOMETHING_ELSE, "none",
-                    "Could not initialize ACRA crash report", R.string.app_ui_crash));
-        }
     }
 
     public void initNotificationChannel() {

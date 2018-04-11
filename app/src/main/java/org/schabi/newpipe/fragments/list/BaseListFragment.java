@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.channel.ChannelInfoItem;
@@ -130,7 +131,11 @@ public abstract class BaseListFragment<I, N> extends BaseStateFragment<I> implem
         infoListAdapter.setFooter(getListFooter());
         infoListAdapter.setHeader(getListHeader());
 
-        itemsList.setAdapter(infoListAdapter);
+        itemsList.setAdapter(onGetAdapter());
+    }
+
+    public RecyclerView.Adapter onGetAdapter() {
+        return infoListAdapter;
     }
 
     protected void onItemSelected(InfoItem selectedItem) {
@@ -151,7 +156,9 @@ public abstract class BaseListFragment<I, N> extends BaseStateFragment<I> implem
 
             @Override
             public void held(StreamInfoItem selectedItem) {
-                showStreamDialog(selectedItem);
+                if (App.isBgPlay()) {
+                    showStreamDialog(selectedItem);
+                }
             }
         });
 

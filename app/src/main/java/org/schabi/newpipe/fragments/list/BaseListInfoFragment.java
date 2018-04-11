@@ -2,13 +2,18 @@ package org.schabi.newpipe.fragments.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.facebook.ads.NativeAd;
+
 import org.schabi.newpipe.extractor.ListExtractor;
 import org.schabi.newpipe.extractor.ListInfo;
+import org.schabi.newpipe.util.AdViewWrapperAdapter;
 import org.schabi.newpipe.util.Constants;
+import org.schabi.newpipe.util.FBAdUtils;
 
 import java.util.Queue;
 
@@ -186,6 +191,15 @@ public abstract class BaseListInfoFragment<I extends ListInfo> extends BaseListF
     // Contract
     //////////////////////////////////////////////////////////////////////////*/
 
+    private AdViewWrapperAdapter adViewWrapperAdapter;
+
+    @Override
+    public RecyclerView.Adapter onGetAdapter() {
+        adViewWrapperAdapter = new AdViewWrapperAdapter(infoListAdapter);
+        infoListAdapter.setParentAdapter(adViewWrapperAdapter);
+        return adViewWrapperAdapter;
+    }
+
     @Override
     public void handleResult(@NonNull I result) {
         super.handleResult(result);
@@ -196,7 +210,19 @@ public abstract class BaseListInfoFragment<I extends ListInfo> extends BaseListF
 
         if (infoListAdapter.getItemsList().size() == 0) {
             if (result.related_streams.size() > 0) {
-                infoListAdapter.addInfoItemList(result.related_streams);
+                NativeAd nativeAd = FBAdUtils.nextNativieAd();
+                if (nativeAd == null || !nativeAd.isAdLoaded()) {
+                    nativeAd = FBAdUtils.getNativeAd();
+                }
+                if (nativeAd != null && nativeAd.isAdLoaded() && result.related_streams.size() > 3) {
+                    int offsetStart = adViewWrapperAdapter.getItemCount();
+                    adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
+                            AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
+                    infoListAdapter.addInfoItemList2(result.related_streams);
+                } else {
+                    infoListAdapter.addInfoItemList(result.related_streams);
+                }
+
                 showListFooter(hasMoreItems());
             } else {
                 infoListAdapter.clearStreamItemList();

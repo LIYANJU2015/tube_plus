@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.stream.VideoStream;
 import org.schabi.newpipe.util.ListHelper;
@@ -93,7 +94,11 @@ class ActionBarHandler {
         // appcompat itemsinflater.inflate(R.menu.videoitem_detail, menu);
 
         defaultPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        inflater.inflate(R.menu.video_detail_menu, menu);
+        if (App.isSuper()) {
+            inflater.inflate(R.menu.video_detail_menu, menu);
+        } else {
+            inflater.inflate(R.menu.video_detail_menu2, menu);
+        }
 
         updateItemsVisibility();
     }
