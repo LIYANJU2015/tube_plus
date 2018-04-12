@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.settings.SettingsActivity;
@@ -101,6 +102,8 @@ public class App extends Application {
             sPreferences.edit().putBoolean("add_Shortcut", true).apply();
             addShortcut(sContext, MainActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
         }
+
+        CrashReport.initCrashReport(getApplicationContext());
     }
 
     public static void addShortcut(Context context, Class clazz, String appName, int ic_launcher) {

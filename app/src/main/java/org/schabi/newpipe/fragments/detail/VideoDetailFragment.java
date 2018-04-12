@@ -193,7 +193,7 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         showRelatedStreams = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean(getString(R.string.show_next_video_key), true);
         PreferenceManager.getDefaultSharedPreferences(activity).registerOnSharedPreferenceChangeListener(this);
 
-        FBAdUtils.interstitialLoad(Constants.FB_CHAPING_AD, new FBAdUtils.FBInterstitialAdListener(){
+        FBAdUtils.interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
             @Override
             public void onInterstitialDismissed(Ad ad) {
                 super.onInterstitialDismissed(ad);
@@ -447,7 +447,7 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         videoCountView = rootView.findViewById(R.id.detail_view_count_view);
 
         detailControlsBackground = rootView.findViewById(R.id.detail_controls_background);
-        if (!App.isBgPlay()) {
+        if (!App.isSuper()) {
             detailControlsBackground.setVisibility(View.GONE);
         }
         detailControlsPopup = rootView.findViewById(R.id.detail_controls_popup);

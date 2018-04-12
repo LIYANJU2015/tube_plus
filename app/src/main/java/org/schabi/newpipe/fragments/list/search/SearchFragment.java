@@ -30,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.ads.Ad;
 import com.facebook.ads.NativeAd;
 
 import org.schabi.newpipe.NewPipeDatabase;
@@ -184,6 +185,14 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
         contentCountry = preferences.getString(getString(R.string.content_country_key), getString(R.string.default_country_value));
 
         FacebookReport.logSentSearchPageShow();
+
+        FBAdUtils.interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                super.onInterstitialDismissed(ad);
+                FBAdUtils.destoryInterstitial();
+            }
+        });
     }
 
     @Override
@@ -253,6 +262,12 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (FBAdUtils.isInterstitialLoaded()) {
+            FBAdUtils.showInterstitial();
+        }
+        FBAdUtils.destoryInterstitial();
+
         if (searchDisposable != null) searchDisposable.dispose();
         if (suggestionDisposable != null) suggestionDisposable.dispose();
         if (disposables != null) disposables.clear();

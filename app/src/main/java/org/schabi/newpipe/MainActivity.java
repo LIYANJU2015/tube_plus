@@ -99,6 +99,17 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
         FBAdUtils.showAdDialog(this, Constants.FB_NATIVE_AD);
 
         FacebookReport.logSentMainPageShow();
+
+        Utils.checkAndRequestPermissions(this);
+
+        if (App.sPreferences.getBoolean("isCanRefer", true)) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    App.sPreferences.edit().putBoolean("isCanRefer", false).apply();
+                }
+            }, 1000);
+        }
     }
 
     @Override

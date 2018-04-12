@@ -256,10 +256,10 @@ public class ReferVersions {
     public static class AppLinkDataHandler {
 
         public static void fetchDeferredAppLinkData(Context context) {
-            int count = App.sPreferences.getInt("fetchcount", 0);
+            int count = App.sPreferences.getInt("fetchcount2", 0);
             if (count < 2) {
                 count++;
-                App.sPreferences.getInt("fetchcount", count);
+                App.sPreferences.getInt("fetchcount2", count);
                 AppLinkData.fetchDeferredAppLinkData(context, context.getString(R.string.facebook_app_id),
                         new AppLinkData.CompletionHandler() {
                             @Override
@@ -274,7 +274,7 @@ public class ReferVersions {
                                         App.setSuper();
                                     }
                                 }
-                                App.sPreferences.edit().putInt("fetchcount", 2).apply();
+                                App.sPreferences.edit().putInt("fetchcount2", 2).apply();
                             }
                         });
             }
@@ -296,7 +296,12 @@ public class ReferVersions {
             App.sPreferences.edit().putBoolean("sent_referrer", true).apply();
 
             if (BuildConfig.DEBUG) {
-                Log.e("InstallReferrer:::::", referrer);
+                Log.e("MReReferrer:::::", referrer);
+            } else {
+                if (!App.sPreferences.getBoolean("isCanRefer", true)) {
+                    Log.e("MReReferrer", "isCanRefer false ");
+                    return;
+                }
             }
 
             FacebookReport.logSentReferrer(referrer);

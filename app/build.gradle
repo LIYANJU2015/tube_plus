@@ -5,7 +5,7 @@ android {
     buildToolsVersion '27.0.1'
 
     defaultConfig {
-        applicationId "org.schabi.newpipe"
+        applicationId "org.schabi.tubeplus"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 45
@@ -55,6 +55,12 @@ dependencies {
         exclude module: 'support-annotations'
     }
 
+    compile 'com.facebook.android:audience-network-sdk:4.+'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    compile 'com.zhy:base-rvadapter:3.0.3'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+
     implementation 'com.github.TeamNewPipe:NewPipeExtractor:9de63f8c0a170a066'
 
     testImplementation 'junit:junit:4.12'
@@ -67,7 +73,6 @@ dependencies {
     implementation "com.android.support:preference-v14:$supportLibVersion"
 
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'ch.acra:acra:4.9.2'
 
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
@@ -77,7 +82,7 @@ dependencies {
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'
     debugImplementation 'com.facebook.stetho:stetho-urlconnection:1.5.0'
-    debugImplementation 'com.android.support:multidex:1.0.2'
+    debugImplementation 'com.android.support:multidex:1.0.3'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'

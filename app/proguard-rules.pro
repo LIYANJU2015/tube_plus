@@ -35,3 +35,6 @@
     @icepick.* <fields>;
 }
 -keepnames class * { @icepick.State *;}
+
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

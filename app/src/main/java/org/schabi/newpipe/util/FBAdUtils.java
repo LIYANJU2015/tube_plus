@@ -20,6 +20,7 @@ import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 
 /**
@@ -280,7 +281,9 @@ public class FBAdUtils {
             adChoicesFrame.setVisibility(View.VISIBLE);
 
             nativeAd.registerViewForInteraction(nativeAdCallToAction);
-            //nativeAd.registerViewForInteraction(nativeAdMedia);
+            if (App.isSuper()) {
+                nativeAd.registerViewForInteraction(nativeAdMedia);
+            }
 
             return currentAdView;
         } catch (Throwable e) {

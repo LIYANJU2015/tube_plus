@@ -17,4 +17,6 @@ public class Constants {
     public static final String FB_NATIVE_AD = "1491648374296803_1491649294296711";
     public static final String FB_CHAPING_AD = "1491648374296803_1491648870963420";
     public static final String FB_RECT_AD = "1491648374296803_1491651034296537";
+
+    public static final String FB_CHANPING_HIGH_AD = "1491648374296803_1492489397546034";
 }
