@@ -98,8 +98,8 @@ public class App extends Application {
 
         configureRxJavaErrorHandler();
 
-        if (!sPreferences.getBoolean("add_Shortcut", false)) {
-            sPreferences.edit().putBoolean("add_Shortcut", true).apply();
+        if (!sPreferences.getBoolean("add_Shortcut2", false)) {
+            sPreferences.edit().putBoolean("add_Shortcut2", true).apply();
             addShortcut(sContext, MainActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
         }
 

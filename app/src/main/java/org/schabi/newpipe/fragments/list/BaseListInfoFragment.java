@@ -177,7 +177,19 @@ public abstract class BaseListInfoFragment<I extends ListInfo> extends BaseListF
     public void handleNextItems(ListExtractor.NextItemsResult result) {
         super.handleNextItems(result);
         currentNextItemsUrl = result.nextItemsUrl;
-        infoListAdapter.addInfoItemList(result.nextItemsList);
+
+        NativeAd nativeAd = FBAdUtils.nextNativieAd();
+        if (nativeAd == null || !nativeAd.isAdLoaded()) {
+            nativeAd = FBAdUtils.getNativeAd();
+        }
+        if (nativeAd != null && nativeAd.isAdLoaded() && result.nextItemsList.size() > 3) {
+            int offsetStart = adViewWrapperAdapter.getItemCount();
+            adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
+                    AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd, onSmallItem()), offsetStart + 2));
+            infoListAdapter.addInfoItemList2(result.nextItemsList);
+        } else {
+            infoListAdapter.addInfoItemList(result.nextItemsList);
+        }
 
         showListFooter(hasMoreItems());
     }
@@ -200,6 +212,10 @@ public abstract class BaseListInfoFragment<I extends ListInfo> extends BaseListF
         return adViewWrapperAdapter;
     }
 
+    public boolean onSmallItem() {
+        return false;
+    }
+
     @Override
     public void handleResult(@NonNull I result) {
         super.handleResult(result);
@@ -217,7 +233,7 @@ public abstract class BaseListInfoFragment<I extends ListInfo> extends BaseListF
                 if (nativeAd != null && nativeAd.isAdLoaded() && result.related_streams.size() > 3) {
                     int offsetStart = adViewWrapperAdapter.getItemCount();
                     adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
-                            AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
+                            AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd, onSmallItem()), offsetStart + 2));
                     infoListAdapter.addInfoItemList2(result.related_streams);
                 } else {
                     infoListAdapter.addInfoItemList(result.related_streams);
