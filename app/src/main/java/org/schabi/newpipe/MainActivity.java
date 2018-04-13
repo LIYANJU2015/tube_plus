@@ -227,9 +227,6 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
                 return true;
             case R.id.action_show_downloads:
                 return NavigationHelper.openDownloads(this);
-            case R.id.action_about:
-                NavigationHelper.openAbout(this);
-                return true;
             case R.id.action_history:
                 NavigationHelper.openHistory(this);
                 return true;

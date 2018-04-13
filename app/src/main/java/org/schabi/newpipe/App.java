@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -74,6 +75,7 @@ public class App extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 
     @Override
@@ -100,7 +102,7 @@ public class App extends Application {
 
         if (!sPreferences.getBoolean("add_Shortcut2", false)) {
             sPreferences.edit().putBoolean("add_Shortcut2", true).apply();
-            addShortcut(sContext, MainActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
+            addShortcut(sContext, WelcomeActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
         }
 
         CrashReport.initCrashReport(getApplicationContext());
