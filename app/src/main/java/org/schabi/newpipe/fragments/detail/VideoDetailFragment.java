@@ -480,7 +480,7 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         infoItemBuilder = new InfoItemBuilder(activity);
         setHeightThumbnail();
 
-        if (App.isBgPlay()) {
+        if (App.isBgPlay() || App.isShowPlayerAd()) {
             NativeAd nativeAd = FBAdUtils.nextNativieAd();
             if (nativeAd == null || !nativeAd.isAdLoaded()) {
                 nativeAd = FBAdUtils.getNativeAd();
@@ -1142,7 +1142,7 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
             videoCountView.setVisibility(View.GONE);
         }
 
-        if (App.isBgPlay()) {
+        if (App.isBgPlay() || App.isShowPlayerAd()) {
             NativeAd nativeAd = FBAdUtils.nextNativieAd();
             if (nativeAd == null || !nativeAd.isAdLoaded()) {
                 nativeAd = FBAdUtils.getNativeAd();

@@ -72,6 +72,10 @@ public class App extends Application {
         ReferVersions.setSuper();
     }
 
+    public static boolean isShowPlayerAd() {
+        return ReferVersions.SuperVersionHandler.isIsShowPlayAd();
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -106,6 +110,8 @@ public class App extends Application {
         }
 
         CrashReport.initCrashReport(getApplicationContext());
+
+        ReferVersions.fetchDeferredAppLinkData(this);
     }
 
     public static void addShortcut(Context context, Class clazz, String appName, int ic_launcher) {

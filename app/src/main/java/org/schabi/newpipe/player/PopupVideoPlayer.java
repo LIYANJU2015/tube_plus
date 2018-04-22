@@ -191,6 +191,8 @@ public final class PopupVideoPlayer extends Service {
         onClose();
     }
 
+    static boolean isShowTips = true;
+
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
@@ -241,11 +243,6 @@ public final class PopupVideoPlayer extends Service {
         playerImpl.getLoadingPanel().setMinimumWidth(windowLayoutParams.width);
         playerImpl.getLoadingPanel().setMinimumHeight(windowLayoutParams.height);
         windowManager.addView(rootView, windowLayoutParams);
-
-        if (!App.sPreferences.getBoolean("popup_tips", false)) {
-            App.sPreferences.edit().putBoolean("popup_tips", true).apply();
-            Toast.makeText(getApplication(), R.string.popup_drag_tips, Toast.LENGTH_LONG).show();
-        }
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -655,6 +652,11 @@ public final class PopupVideoPlayer extends Service {
             super.onPlaying();
             updateNotification(R.drawable.ic_pause_white);
             lockManager.acquireWifiAndCpu();
+
+            if (isShowTips) {
+                isShowTips = false;
+                Toast.makeText(getApplication(), R.string.popup_drag_tips, Toast.LENGTH_LONG).show();
+            }
         }
 
         @Override

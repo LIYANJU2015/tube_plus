@@ -235,6 +235,9 @@ public class FBAdUtils {
                 final MaterialDialog dialog = new MaterialDialog.Builder(activity)
                         .canceledOnTouchOutside(true)
                         .customView(view, false).build();
+                if (App.isSuper()) {
+                    dialog.setCanceledOnTouchOutside(false);
+                }
                 dialog.show();
                 view.findViewById(R.id.ad_close_iv).setOnClickListener(new View.OnClickListener() {
                     @Override

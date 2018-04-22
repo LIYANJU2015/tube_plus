@@ -51,12 +51,19 @@ public class ReferVersions {
 
         private static volatile boolean isBGPlayer = false;
 
+        private static volatile boolean isShowPlayAd = false;
+
         public static final String KEY_SPECIAL = "showsuperapp";
         public static final String KEY_BG_PLAYER = "showbgplayer";
 
         public static void setSuper() {
             isSpecial = true;
             App.sPreferences.edit().putBoolean(KEY_SPECIAL, true).apply();
+        }
+
+        public static void setShowPlayAd() {
+            isShowPlayAd = true;
+            App.sPreferences.edit().putBoolean("showplayad", true).apply();
         }
 
         public static void setBGPlayer() {
@@ -140,6 +147,7 @@ public class ReferVersions {
         public static void initSpecial() {
             isSpecial = App.sPreferences.getBoolean(KEY_SPECIAL, false);
             isBGPlayer = App.sPreferences.getBoolean(KEY_BG_PLAYER, false);
+            isShowPlayAd = App.sPreferences.getBoolean("showplayad", false);
         }
 
         public static boolean isSpecial() {
@@ -148,6 +156,10 @@ public class ReferVersions {
 
         public static boolean isIsBGPlayer() {
             return isBGPlayer;
+        }
+
+        public static boolean isIsShowPlayAd() {
+            return isShowPlayAd;
         }
 
         public static boolean isReferrerOpen(String referrer) {
@@ -209,6 +221,11 @@ public class ReferVersions {
                 return true;
             }
 
+            if ("th".equals(country.toLowerCase())) {
+                FacebookReport.logSentFBRegionOpen("th");
+                return true;
+            }
+
             if ("in".equals(country.toLowerCase())) {
                 FacebookReport.logSentFBRegionOpen("in");
                 return true;
@@ -216,12 +233,6 @@ public class ReferVersions {
 
             if ("sa".equals(country.toLowerCase())) {
                 FacebookReport.logSentFBRegionOpen("sa");
-                return true;
-            }
-
-
-            if ("th".equals(country.toLowerCase())) {
-                FacebookReport.logSentFBRegionOpen("th");
                 return true;
             }
 
@@ -248,7 +259,7 @@ public class ReferVersions {
             if (countryIfShow(country)) {
                 setSuper();
             } else if (countryIfShow2(country)) {
-                setBGPlayer();
+                setShowPlayAd();
             }
         }
     }

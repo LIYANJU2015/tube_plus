@@ -46,7 +46,7 @@
 
     <style name="splash_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/color_cccccc</item>
-        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:windowBackground">@drawable/we_bg_splash</item>
     </style>
 
 
