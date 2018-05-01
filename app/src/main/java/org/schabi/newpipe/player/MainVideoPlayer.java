@@ -832,6 +832,9 @@ public final class MainVideoPlayer extends Activity {
 
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            if (e == null) {
+                return false;
+            }
             if (DEBUG) Log.d(TAG, "onDoubleTap() called with: e = [" + e + "]" + "rawXy = " + e.getRawX() + ", " + e.getRawY() + ", xy = " + e.getX() + ", " + e.getY());
             if (!playerImpl.isPlaying()) return false;
 
@@ -846,6 +849,9 @@ public final class MainVideoPlayer extends Activity {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
+            if (e == null) {
+                return false;
+            }
             if (DEBUG) Log.d(TAG, "onSingleTapConfirmed() called with: e = [" + e + "]");
             if (playerImpl.getCurrentState() == BasePlayer.STATE_BLOCKED) return true;
 
@@ -876,6 +882,10 @@ public final class MainVideoPlayer extends Activity {
         // TODO: Improve video gesture controls
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (e1 == null || e2 == null) {
+                return false;
+            }
+
             if (!isPlayerGestureEnabled) return false;
 
             //noinspection PointlessBooleanExpression

@@ -12,6 +12,13 @@ import org.schabi.newpipe.App;
 
 public class FacebookReport {
 
+    public static void logSentRating(String rating) {
+        AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
+        Bundle bundle = new Bundle();
+        bundle.putString("rating", rating);
+        logger.logEvent("rating", bundle);
+    }
+
     public static void logSentMainPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();

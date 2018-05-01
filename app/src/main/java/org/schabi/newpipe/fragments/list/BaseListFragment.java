@@ -29,6 +29,7 @@ import org.schabi.newpipe.info_list.InfoItemBuilder;
 import org.schabi.newpipe.info_list.InfoItemDialog;
 import org.schabi.newpipe.info_list.InfoListAdapter;
 import org.schabi.newpipe.playlist.SinglePlayQueue;
+import org.schabi.newpipe.util.MyLinearLayoutManager;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.PermissionHelper;
 import org.schabi.newpipe.util.StateSaver;
@@ -118,7 +119,7 @@ public abstract class BaseListFragment<I, N> extends BaseStateFragment<I> implem
     }
 
     protected RecyclerView.LayoutManager getListLayoutManager() {
-        return new LinearLayoutManager(activity);
+        return new MyLinearLayoutManager(activity);
     }
 
     @Override
