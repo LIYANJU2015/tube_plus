@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -100,6 +101,10 @@ public class MissionAdapter extends RecyclerView.Adapter<MissionAdapter.ViewHold
         DownloadMission ms = mManager.getMission(pos);
         h.mission = ms;
         h.position = pos;
+
+        if (TextUtils.isEmpty(ms.name)) {
+            return;
+        }
 
         Utility.FileType type = Utility.getFileType(ms.name);
 
