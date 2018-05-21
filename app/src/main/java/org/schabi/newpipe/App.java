@@ -144,22 +144,22 @@ public class App extends Application {
             public void accept(@NonNull Throwable throwable) throws Exception {
                 Log.e(TAG, "RxJavaPlugins.ErrorHandler called with -> : throwable = [" + throwable.getClass().getName() + "]");
 
-                if (throwable instanceof UndeliverableException) {
-                    // As UndeliverableException is a wrapper, get the cause of it to get the "real" exception
-                    throwable = throwable.getCause();
-                }
-
-                if (throwable instanceof CompositeException) {
-                    for (Throwable element : ((CompositeException) throwable).getExceptions()) {
-                        if (checkThrowable(element)) return;
-                    }
-                }
-
-                if (checkThrowable(throwable)) return;
-
-                // Throw uncaught exception that will trigger the report system
-                Thread.currentThread().getUncaughtExceptionHandler()
-                        .uncaughtException(Thread.currentThread(), throwable);
+//                if (throwable instanceof UndeliverableException) {
+//                    // As UndeliverableException is a wrapper, get the cause of it to get the "real" exception
+//                    throwable = throwable.getCause();
+//                }
+//
+//                if (throwable instanceof CompositeException) {
+//                    for (Throwable element : ((CompositeException) throwable).getExceptions()) {
+//                        if (checkThrowable(element)) return;
+//                    }
+//                }
+//
+//                if (checkThrowable(throwable)) return;
+//
+//                // Throw uncaught exception that will trigger the report system
+//                Thread.currentThread().getUncaughtExceptionHandler()
+//                        .uncaughtException(Thread.currentThread(), throwable);
             }
 
             private boolean checkThrowable(@NonNull Throwable throwable) {

@@ -137,7 +137,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, new MainFragment())
                 .addToBackStack(MAIN_FRAGMENT_TAG)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public static void openSearchFragment(FragmentManager fragmentManager, int serviceId, String query) {
@@ -145,7 +145,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, SearchFragment.getInstance(serviceId, query))
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public static void openVideoDetailFragment(FragmentManager fragmentManager, int serviceId, String url, String title) {
@@ -170,7 +170,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, instance)
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public static void openChannelFragment(FragmentManager fragmentManager, int serviceId, String url, String name) {
@@ -179,7 +179,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, ChannelFragment.getInstance(serviceId, url, name))
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public static void openPlaylistFragment(FragmentManager fragmentManager, int serviceId, String url, String name) {
@@ -188,7 +188,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, PlaylistFragment.getInstance(serviceId, url, name))
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public static void openWhatsNewFragment(FragmentManager fragmentManager) {
@@ -196,7 +196,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, new FeedFragment())
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public static void openKioskFragment(FragmentManager fragmentManager, int serviceId, String kioskId)
@@ -205,7 +205,7 @@ public class NavigationHelper {
                 .setCustomAnimations(R.animator.custom_fade_in, R.animator.custom_fade_out, R.animator.custom_fade_in, R.animator.custom_fade_out)
                 .replace(R.id.fragment_holder, KioskFragment.getInstance(serviceId, kioskId))
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     /*//////////////////////////////////////////////////////////////////////////

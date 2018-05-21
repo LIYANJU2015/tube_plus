@@ -757,33 +757,43 @@ public final class PopupVideoPlayer extends Service {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            if (isResizing || playerImpl == null) return super.onScroll(e1, e2, distanceX, distanceY);
+            try {
+                if (e1 == null || e2 == null) {
+                    return false;
+                }
+                if (isResizing || playerImpl == null)
+                    return super.onScroll(e1, e2, distanceX, distanceY);
 
-            if (playerImpl.getCurrentState() != BasePlayer.STATE_BUFFERING
-                    && (!isMoving || playerImpl.getControlsRoot().getAlpha() != 1f)) playerImpl.showControls(0);
-            isMoving = true;
+                if (playerImpl.getCurrentState() != BasePlayer.STATE_BUFFERING
+                        && (!isMoving || playerImpl.getControlsRoot().getAlpha() != 1f))
+                    playerImpl.showControls(0);
+                isMoving = true;
 
-            float diffX = (int) (e2.getRawX() - e1.getRawX()), posX = (int) (initialPopupX + diffX);
-            float diffY = (int) (e2.getRawY() - e1.getRawY()), posY = (int) (initialPopupY + diffY);
+                float diffX = (int) (e2.getRawX() - e1.getRawX()), posX = (int) (initialPopupX + diffX);
+                float diffY = (int) (e2.getRawY() - e1.getRawY()), posY = (int) (initialPopupY + diffY);
 
-            if (posX > (screenWidth - popupWidth)) posX = (int) (screenWidth - popupWidth);
-            else if (posX < 0) posX = 0;
+                if (posX > (screenWidth - popupWidth)) posX = (int) (screenWidth - popupWidth);
+                else if (posX < 0) posX = 0;
 
-            if (posY > (screenHeight - popupHeight)) posY = (int) (screenHeight - popupHeight);
-            else if (posY < 0) posY = 0;
+                if (posY > (screenHeight - popupHeight)) posY = (int) (screenHeight - popupHeight);
+                else if (posY < 0) posY = 0;
 
-            windowLayoutParams.x = (int) posX;
-            windowLayoutParams.y = (int) posY;
+                windowLayoutParams.x = (int) posX;
+                windowLayoutParams.y = (int) posY;
 
-            //noinspection PointlessBooleanExpression
-            if (DEBUG && false) Log.d(TAG, "PopupVideoPlayer.onScroll = " +
-                    ", e1.getRaw = [" + e1.getRawX() + ", " + e1.getRawY() + "]" +
-                    ", e2.getRaw = [" + e2.getRawX() + ", " + e2.getRawY() + "]" +
-                    ", distanceXy = [" + distanceX + ", " + distanceY + "]" +
-                    ", posXy = [" + posX + ", " + posY + "]" +
-                    ", popupWh = [" + popupWidth + " x " + popupHeight + "]");
-            windowManager.updateViewLayout(playerImpl.getRootView(), windowLayoutParams);
-            return true;
+                //noinspection PointlessBooleanExpression
+                if (DEBUG && false) Log.d(TAG, "PopupVideoPlayer.onScroll = " +
+                        ", e1.getRaw = [" + e1.getRawX() + ", " + e1.getRawY() + "]" +
+                        ", e2.getRaw = [" + e2.getRawX() + ", " + e2.getRawY() + "]" +
+                        ", distanceXy = [" + distanceX + ", " + distanceY + "]" +
+                        ", posXy = [" + posX + ", " + posY + "]" +
+                        ", popupWh = [" + popupWidth + " x " + popupHeight + "]");
+                windowManager.updateViewLayout(playerImpl.getRootView(), windowLayoutParams);
+                return true;
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+            return false;
         }
 
         private void onScrollEnd() {

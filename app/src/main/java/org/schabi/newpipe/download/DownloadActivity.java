@@ -74,53 +74,6 @@ public class DownloadActivity extends AppCompatActivity {
                 FBAdUtils.destoryInterstitial();
             }
         });
-
-        try {
-            showRating();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showRating() {
-        if (isFinishing()) {
-            return;
-        }
-
-        if (App.sPreferences.getBoolean("isShowRating", false)) {
-            return;
-        }
-
-        MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .canceledOnTouchOutside(true)
-                .content(R.string.rating_download_tips)
-                .positiveText(R.string.five_star)
-                .cancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        App.sPreferences.edit().putBoolean("isShowRating", true).apply();
-                    }
-                })
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                        goToGP(getApplicationContext());
-                        FacebookReport.logSentRating("five rating");
-                        App.sPreferences.edit().putBoolean("isShowRating", true).apply();
-                    }
-                })
-                .negativeText(R.string.cancel)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                        FacebookReport.logSentRating("not five");
-                    }
-                })
-                .title(R.string.rating)
-                .build();
-        dialog.show();
     }
 
     public static void goToGP(Context context) {

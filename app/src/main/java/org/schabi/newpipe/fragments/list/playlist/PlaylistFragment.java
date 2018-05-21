@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.ads.Ad;
+
 import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.ListExtractor;
@@ -30,7 +32,9 @@ import org.schabi.newpipe.playlist.PlayQueue;
 import org.schabi.newpipe.playlist.PlaylistPlayQueue;
 import org.schabi.newpipe.playlist.SinglePlayQueue;
 import org.schabi.newpipe.report.UserAction;
+import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.ExtractorHelper;
+import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.NavigationHelper;
 
 import io.reactivex.Single;
@@ -67,7 +71,23 @@ public class PlaylistFragment extends BaseListInfoFragment<PlaylistInfo> {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FBAdUtils.interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                super.onInterstitialDismissed(ad);
+                FBAdUtils.destoryInterstitial();
+            }
+        });
         return inflater.inflate(R.layout.fragment_playlist, container, false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (FBAdUtils.isInterstitialLoaded()) {
+            FBAdUtils.showInterstitial();
+        }
+        FBAdUtils.destoryInterstitial();
     }
 
     /*//////////////////////////////////////////////////////////////////////////

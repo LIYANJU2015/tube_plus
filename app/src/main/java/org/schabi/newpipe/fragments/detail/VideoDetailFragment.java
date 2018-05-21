@@ -577,7 +577,13 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
             imageLoader.displayImage(info.getThumbnailUrl(), thumbnailImageView, DISPLAY_THUMBNAIL_OPTIONS, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    ErrorActivity.reportError(activity, failReason.getCause(), null, activity.findViewById(android.R.id.content), ErrorActivity.ErrorInfo.make(UserAction.LOAD_IMAGE, NewPipe.getNameOfService(currentInfo.getServiceId()), imageUri, R.string.could_not_load_thumbnails));
+                    try {
+                        if (activity != null && failReason != null) {
+                            ErrorActivity.reportError(activity, failReason.getCause(), null, activity.findViewById(android.R.id.content), ErrorActivity.ErrorInfo.make(UserAction.LOAD_IMAGE, NewPipe.getNameOfService(currentInfo.getServiceId()), imageUri, R.string.could_not_load_thumbnails));
+                        }
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

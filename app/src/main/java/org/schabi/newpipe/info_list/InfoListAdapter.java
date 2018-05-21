@@ -17,6 +17,7 @@ import org.schabi.newpipe.info_list.holder.InfoItemHolder;
 import org.schabi.newpipe.info_list.holder.PlaylistInfoItemHolder;
 import org.schabi.newpipe.info_list.holder.StreamInfoItemHolder;
 import org.schabi.newpipe.info_list.holder.StreamMiniInfoItemHolder;
+import org.schabi.newpipe.util.AdViewWrapperAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,13 @@ public class InfoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return;
         }
         infoItemList.clear();
-        notifyDataSetChanged();
+
+        if (parentAdapter != null && parentAdapter instanceof AdViewWrapperAdapter) {
+            ((AdViewWrapperAdapter)parentAdapter).clearAdView();
+            parentAdapter.notifyDataSetChanged();
+        } else {
+            notifyDataSetChanged();
+        }
     }
 
     public void setHeader(View header) {

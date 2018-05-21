@@ -64,7 +64,7 @@ public class AdViewWrapperAdapter extends RecyclerView.Adapter<RecyclerView.View
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return -1;
     }
 
     public int getAdViewCountBeforeByPostion(int postion) {

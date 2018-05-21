@@ -882,61 +882,73 @@ public final class MainVideoPlayer extends Activity {
         // TODO: Improve video gesture controls
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            if (e1 == null || e2 == null) {
-                return false;
-            }
+            try {
+                if (e1 == null || e2 == null) {
+                    return false;
+                }
 
-            if (!isPlayerGestureEnabled) return false;
+                if (!isPlayerGestureEnabled) return false;
 
-            //noinspection PointlessBooleanExpression
-            if (DEBUG && false) Log.d(TAG, "MainVideoPlayer.onScroll = " +
-                    ", e1.getRaw = [" + e1.getRawX() + ", " + e1.getRawY() + "]" +
-                    ", e2.getRaw = [" + e2.getRawX() + ", " + e2.getRawY() + "]" +
-                    ", distanceXy = [" + distanceX + ", " + distanceY + "]");
-            float abs = Math.abs(e2.getY() - e1.getY());
-            if (!triggered) {
-                triggered = abs > MOVEMENT_THRESHOLD;
-                return false;
-            }
+                //noinspection PointlessBooleanExpression
+                if (DEBUG && false) Log.d(TAG, "MainVideoPlayer.onScroll = " +
+                        ", e1.getRaw = [" + e1.getRawX() + ", " + e1.getRawY() + "]" +
+                        ", e2.getRaw = [" + e2.getRawX() + ", " + e2.getRawY() + "]" +
+                        ", distanceXy = [" + distanceX + ", " + distanceY + "]");
+                float abs = Math.abs(e2.getY() - e1.getY());
+                if (!triggered) {
+                    triggered = abs > MOVEMENT_THRESHOLD;
+                    return false;
+                }
 
-            if (eventsNum++ % eventsThreshold != 0 || playerImpl.getCurrentState() == BasePlayer.STATE_COMPLETED) return false;
-            isMoving = true;
+                if (eventsNum++ % eventsThreshold != 0 || playerImpl.getCurrentState() == BasePlayer.STATE_COMPLETED)
+                    return false;
+                isMoving = true;
 //            boolean up = !((e2.getY() - e1.getY()) > 0) && distanceY > 0; // Android's origin point is on top
-            boolean up = distanceY > 0;
+                boolean up = distanceY > 0;
 
 
-            if (e1.getX() > playerImpl.getRootView().getWidth() / 2) {
-                double floor = Math.floor(up ? stepVolume : -stepVolume);
-                currentVolume = (int) (playerImpl.getAudioReactor().getVolume() + floor);
-                if (currentVolume >= maxVolume) currentVolume = maxVolume;
-                if (currentVolume <= minVolume) currentVolume = (int) minVolume;
-                playerImpl.getAudioReactor().setVolume(currentVolume);
+                if (e1.getX() > playerImpl.getRootView().getWidth() / 2) {
+                    double floor = Math.floor(up ? stepVolume : -stepVolume);
+                    currentVolume = (int) (playerImpl.getAudioReactor().getVolume() + floor);
+                    if (currentVolume >= maxVolume) currentVolume = maxVolume;
+                    if (currentVolume <= minVolume) currentVolume = (int) minVolume;
+                    playerImpl.getAudioReactor().setVolume(currentVolume);
 
-                currentVolume = playerImpl.getAudioReactor().getVolume();
-                if (DEBUG) Log.d(TAG, "onScroll().volumeControl, currentVolume = " + currentVolume);
-                final String volumeText = volumeUnicode + " " + Math.round((((float) currentVolume) / maxVolume) * 100) + "%";
-                playerImpl.getVolumeTextView().setText(volumeText);
+                    currentVolume = playerImpl.getAudioReactor().getVolume();
+                    if (DEBUG)
+                        Log.d(TAG, "onScroll().volumeControl, currentVolume = " + currentVolume);
+                    final String volumeText = volumeUnicode + " " + Math.round((((float) currentVolume) / maxVolume) * 100) + "%";
+                    playerImpl.getVolumeTextView().setText(volumeText);
 
-                if (playerImpl.getVolumeTextView().getVisibility() != View.VISIBLE) animateView(playerImpl.getVolumeTextView(), true, 200);
-                if (playerImpl.getBrightnessTextView().getVisibility() == View.VISIBLE) playerImpl.getBrightnessTextView().setVisibility(View.GONE);
-            } else {
-                WindowManager.LayoutParams lp = getWindow().getAttributes();
-                currentBrightness += up ? stepBrightness : -stepBrightness;
-                if (currentBrightness >= 1f) currentBrightness = 1f;
-                if (currentBrightness <= minBrightness) currentBrightness = minBrightness;
+                    if (playerImpl.getVolumeTextView().getVisibility() != View.VISIBLE)
+                        animateView(playerImpl.getVolumeTextView(), true, 200);
+                    if (playerImpl.getBrightnessTextView().getVisibility() == View.VISIBLE)
+                        playerImpl.getBrightnessTextView().setVisibility(View.GONE);
+                } else {
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    currentBrightness += up ? stepBrightness : -stepBrightness;
+                    if (currentBrightness >= 1f) currentBrightness = 1f;
+                    if (currentBrightness <= minBrightness) currentBrightness = minBrightness;
 
-                lp.screenBrightness = currentBrightness;
-                getWindow().setAttributes(lp);
-                if (DEBUG) Log.d(TAG, "onScroll().brightnessControl, currentBrightness = " + currentBrightness);
-                int brightnessNormalized = Math.round(currentBrightness * 100);
+                    lp.screenBrightness = currentBrightness;
+                    getWindow().setAttributes(lp);
+                    if (DEBUG)
+                        Log.d(TAG, "onScroll().brightnessControl, currentBrightness = " + currentBrightness);
+                    int brightnessNormalized = Math.round(currentBrightness * 100);
 
-                final String brightnessText = brightnessUnicode + " " + (brightnessNormalized == 1 ? 0 : brightnessNormalized) + "%";
-                playerImpl.getBrightnessTextView().setText(brightnessText);
+                    final String brightnessText = brightnessUnicode + " " + (brightnessNormalized == 1 ? 0 : brightnessNormalized) + "%";
+                    playerImpl.getBrightnessTextView().setText(brightnessText);
 
-                if (playerImpl.getBrightnessTextView().getVisibility() != View.VISIBLE) animateView(playerImpl.getBrightnessTextView(), true, 200);
-                if (playerImpl.getVolumeTextView().getVisibility() == View.VISIBLE) playerImpl.getVolumeTextView().setVisibility(View.GONE);
+                    if (playerImpl.getBrightnessTextView().getVisibility() != View.VISIBLE)
+                        animateView(playerImpl.getBrightnessTextView(), true, 200);
+                    if (playerImpl.getVolumeTextView().getVisibility() == View.VISIBLE)
+                        playerImpl.getVolumeTextView().setVisibility(View.GONE);
+                }
+                return true;
+            } catch (Throwable e) {
+                e.printStackTrace();
             }
-            return true;
+            return false;
         }
 
         private void onScrollEnd() {

@@ -344,4 +344,6 @@
     <string name="five_star">Five star praise</string>
     <string name="cancel_rating">Cancel</string>
     <string name="rating">Rating</string>
+
+    <string name="download_rating">For you to download a video, please give me five stars.</string>
 </resources>

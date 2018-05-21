@@ -550,7 +550,7 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
 
     private void hideKeyboardSearch() {
         if (DEBUG) Log.d(TAG, "hideKeyboardSearch() called");
-        if (searchEditText == null) return;
+        if (searchEditText == null || activity == null) return;
 
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);

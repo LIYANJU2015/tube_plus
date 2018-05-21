@@ -347,7 +347,7 @@ public class DownloadManagerImpl implements DownloadManager {
                 mission.start();
             } catch (Exception e) {
                 // TODO Notify
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
