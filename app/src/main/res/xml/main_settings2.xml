@@ -5,17 +5,17 @@
     android:title="@string/settings">
 
     <PreferenceScreen
-        android:fragment="org.schabi.newpipe.settings.VideoAudioSettingsFragment"
+        android:fragment="org.tube.player.settings.VideoAudioSettingsFragment"
         android:icon="?attr/audio"
         android:title="@string/settings_category_video_audio_title"/>
 
     <PreferenceScreen
-        android:fragment="org.schabi.newpipe.settings.HistorySettingsFragment"
+        android:fragment="org.tube.player.settings.HistorySettingsFragment"
         android:icon="?attr/history"
         android:title="@string/settings_category_history_title"/>
 
     <PreferenceScreen
-        android:fragment="org.schabi.newpipe.settings.ContentSettingsFragment"
+        android:fragment="org.tube.player.settings.ContentSettingsFragment"
         android:icon="?attr/language"
         android:title="@string/content"/>
 </PreferenceScreen>

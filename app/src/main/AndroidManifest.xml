@@ -2,7 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.schabi.newpipe">
+    package="org.tube.player">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -17,7 +17,7 @@
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
     <application
-        android:name=".App"
+        android:name="org.tube.player.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,12 +26,12 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name=".MainActivity"
+            android:name="org.tube.player.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".SplashActivity"
+            android:name="org.tube.player.SplashActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
@@ -44,46 +44,46 @@
         </activity>
 
         <activity
-            android:name=".player.old.PlayVideoActivity"
+            android:name="org.tube.player.player.old.PlayVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/VideoPlayerTheme"
             tools:ignore="UnusedAttribute"/>
 
         <service
-            android:name=".player.BackgroundPlayer"
+            android:name="org.tube.player.player.BackgroundPlayer"
             android:exported="false"/>
 
         <activity
-            android:name=".player.BackgroundPlayerActivity"
+            android:name="org.tube.player.player.BackgroundPlayerActivity"
             android:launchMode="singleTask"
             android:label="@string/title_activity_background_player"/>
 
         <activity
-            android:name=".player.PopupVideoPlayerActivity"
+            android:name="org.tube.player.player.PopupVideoPlayerActivity"
             android:launchMode="singleTask"
             android:label="@string/title_activity_popup_player"/>
 
         <service
-            android:name=".player.PopupVideoPlayer"
+            android:name="org.tube.player.player.PopupVideoPlayer"
             android:exported="false"/>
 
         <activity
-            android:name=".player.MainVideoPlayer"
+            android:name="org.tube.player.player.MainVideoPlayer"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/PlayerTheme"/>
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name="org.tube.player.settings.SettingsActivity"
             android:label="@string/settings"/>
 
         <activity
-            android:name=".history.HistoryActivity"
+            android:name="org.tube.player.history.HistoryActivity"
             android:label="@string/title_activity_history"/>
 
         <activity
-            android:name=".PanicResponderActivity"
+            android:name="org.tube.player.PanicResponderActivity"
             android:launchMode="singleInstance"
             android:noHistory="true"
             android:theme="@android:style/Theme.NoDisplay">
@@ -95,21 +95,21 @@
         </activity>
 
         <activity
-            android:name=".ExitActivity"
+            android:name="org.tube.player.ExitActivity"
             android:label="@string/general_error"
             android:theme="@android:style/Theme.NoDisplay"/>
-        <activity android:name=".report.ErrorActivity"/>
+        <activity android:name="org.tube.player.report.ErrorActivity"/>
 
         <!-- giga get related -->
         <activity
-            android:name=".download.MissionActivity"
+            android:name="org.tube.player.download.MissionActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
 
-        <service android:name="us.shandian.giga.service.MissionManagerService"/>
+        <service android:name="com.leiting.mission.service.MissionManagerService"/>
 
         <activity
-            android:name=".util.FilePickerActivityHelper"
+            android:name="org.tube.player.util.FilePickerActivityHelper"
             android:label="@string/app_name"
             android:theme="@style/FilePickerThemeDark">
             <intent-filter>
@@ -119,7 +119,7 @@
         </activity>
 
         <activity
-            android:name=".ReCaptchaActivity"
+            android:name="org.tube.player.ReCaptchaActivity"
             android:label="@string/reCaptchaActivity"/>
 
         <provider
@@ -133,19 +133,19 @@
         </provider>
 
         <activity
-            android:name=".RouterActivity"
+            android:name="org.tube.player.RouterActivity"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
         </activity>
         <activity
-            android:name=".RouterPopupActivity"
+            android:name="org.tube.player.RouterPopupActivity"
             android:label="@string/popup_mode_share_menu_title"
             android:taskAffinity=""
             android:theme="@style/PopupPermissionsTheme">
         </activity>
 
         <receiver
-            android:name=".util.MultipleInstallBroadcastReceiver"
+            android:name="org.tube.player.util.MultipleInstallBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />

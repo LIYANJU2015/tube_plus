@@ -43,13 +43,6 @@ android {
             debuggable true
             applicationIdSuffix ".debug"
         }
-        beta {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            applicationIdSuffix ".beta"
-        }
     }
 
     lintOptions {
