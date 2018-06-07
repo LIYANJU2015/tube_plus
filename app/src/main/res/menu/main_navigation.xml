@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:orderInCategory="0"
+        android:id="@+id/navigation_hot"
+        android:icon="@drawable/ic_whatshot_6060_24dp"
+        android:title="@string/trending" />
+
+    <item
+        android:orderInCategory="1"
+        android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/ic_live_tv_6060_24dp"
+        android:title="@string/tab_subscriptions" />
+
+</menu>

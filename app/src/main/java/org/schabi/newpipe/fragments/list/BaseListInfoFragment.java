@@ -95,9 +95,9 @@ public abstract class BaseListInfoFragment<I extends ListInfo> extends BaseListF
 
     public void setTitle(String title) {
         Log.d(TAG, "setTitle() called with: title = [" + title + "]");
-        if (activity.getSupportActionBar() != null) {
-            activity.getSupportActionBar().setTitle(title);
-        }
+//        if (activity.getSupportActionBar() != null) {
+//            activity.getSupportActionBar().setTitle(title);
+//        }
     }
 
     /*//////////////////////////////////////////////////////////////////////////

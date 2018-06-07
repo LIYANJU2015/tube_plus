@@ -116,9 +116,6 @@ public class FeedFragment extends BaseListFragment<List<SubscriptionEntity>, Voi
         super.onCreateOptionsMenu(menu, inflater);
 
         ActionBar supportActionBar = activity.getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setTitle(R.string.fragment_whats_new);
-        }
 
         if(useAsFrontPage) {
             supportActionBar.setDisplayShowTitleEnabled(true);

@@ -3,7 +3,7 @@
 
     <!-- Light Theme -->
     <color name="light_background_color">#FFFFFF</color>
-    <color name="light_youtube_primary_color">#e53935</color>
+    <color name="light_youtube_primary_color">#ff0000</color>
     <color name="light_youtube_dark_color">#d32f2f</color>
     <color name="light_youtube_accent_color">#000000</color>
     <color name="light_separator_color">#32000000</color>
@@ -68,6 +68,8 @@
     <color name="gray">#616161</color>
 
     <color name="color_cccccc">#cccccc</color>
+
+    <color name="color_606060">#606060</color>
 
     <color name="black">#000</color>
     <color name="white_d_d_d">#a1a1a1</color>

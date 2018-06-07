@@ -101,20 +101,6 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
     //////////////////////////////////////////////////////////////////////////*/
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(activity != null
-                && useAsFrontPage
-                && isVisibleToUser) {
-            try {
-                activity.getSupportActionBar().setTitle(currentInfo.getName());
-            } catch (Exception e) {
-                onError(e);
-            }
-        }
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         subscriptionService = SubscriptionService.getInstance();

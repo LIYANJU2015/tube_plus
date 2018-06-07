@@ -1,9 +1,12 @@
 package org.schabi.newpipe.fragments;
 
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +24,7 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.schabi.newpipe.App;
 import org.schabi.newpipe.BaseFragment;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.NewPipe;
@@ -36,7 +40,7 @@ import org.schabi.newpipe.util.KioskTranslator;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.ThemeHelper;
 
-public class MainFragment extends BaseFragment implements TabLayout.OnTabSelectedListener {
+public class MainFragment extends BaseFragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     private ViewPager viewPager;
     private boolean showBlankTab = false;
 
@@ -54,6 +58,8 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
     private static final String FALLBACK_CHANNEL_NAME = "Music";
     private static final String FALLBACK_KIOSK_ID = "Trending";
     private static final int KIOSK_MENU_OFFSET = 2000;
+
+    private BottomNavigationView mBNavigation;
 
     /*//////////////////////////////////////////////////////////////////////////
     // Fragment's LifeCycle
@@ -75,31 +81,57 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
     @Override
     protected void initViews(View rootView, Bundle savedInstanceState) {
         super.initViews(rootView, savedInstanceState);
-
-        TabLayout tabLayout = rootView.findViewById(R.id.main_tab_layout);
+        mBNavigation = rootView.findViewById(R.id.main_navigation);
+        mBNavigation.setOnNavigationItemSelectedListener(this);
         viewPager = rootView.findViewById(R.id.pager);
-
         /*  Nested fragment, use child fragment here to maintain backstack in view pager. */
         PagerAdapter adapter = new PagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(adapter.getCount());
-
-        tabLayout.setupWithViewPager(viewPager);
-
-        int channelIcon;
-        int whatsHotIcon;
-
-        channelIcon = R.drawable.channel_selector;
-        whatsHotIcon = R.drawable.whatshot_selector;
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                int menuId = mBNavigation.getMenu().getItem(position).getItemId();
+                mBNavigation.setSelectedItemId(menuId);
+            }
+        });
 
         if (PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .getString(getString(R.string.main_page_content_key), getString(R.string.blank_page_key))
                 .equals(getString(R.string.subscription_page_key))) {
-            tabLayout.getTabAt(0).setIcon(channelIcon);
+            mBNavigation.inflateMenu(R.menu.main_navigation2);
         } else {
-            tabLayout.getTabAt(0).setIcon(whatsHotIcon);
-            tabLayout.getTabAt(1).setIcon(channelIcon);
+            mBNavigation.inflateMenu(R.menu.main_navigation);
         }
+
+        int[][] states = new int[][]{ new int[]{-android.R.attr.state_checked},
+                new int[]{android.R.attr.state_checked}
+        };
+        int[] colors = new int[]{ getResources().getColor(R.color.color_606060),
+                getResources().getColor(R.color.light_youtube_primary_color)
+        };
+        ColorStateList csl = new ColorStateList(states, colors);
+        mBNavigation.setItemIconTintList(csl);
+        mBNavigation.setItemTextColor(csl);
+
+        String title = KioskTranslator.getTranslatedKioskName(App.sPreferences
+                .getString(getString(R.string.main_page_selectd_kiosk_id),
+                        FALLBACK_KIOSK_ID), activity);
+        if (mBNavigation.getMenu().size() == 2) {
+            mBNavigation.getMenu().getItem(0).setTitle(title);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        viewPager.setCurrentItem(item.getOrder());
+        return true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewPager.clearOnPageChangeListeners();
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -137,23 +169,6 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /*//////////////////////////////////////////////////////////////////////////
-    // Tabs
-    //////////////////////////////////////////////////////////////////////////*/
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
     }
 
     private class PagerAdapter extends FragmentPagerAdapter {

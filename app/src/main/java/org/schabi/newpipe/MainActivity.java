@@ -28,6 +28,7 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -71,7 +72,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class MainActivity extends AppCompatActivity implements HistoryListener {
     private static final String TAG = "MainActivity";
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     private SharedPreferences sharedPreferences;
 
     /*//////////////////////////////////////////////////////////////////////////

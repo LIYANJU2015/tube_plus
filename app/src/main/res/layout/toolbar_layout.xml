@@ -16,6 +16,8 @@
         android:gravity="center_vertical"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/apptheme_toolbar"
+        app:title="@string/app_name"
+        app:contentInsetStartWithNavigation="10dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextAppearance="@style/Toolbar.Title">
 

@@ -51,18 +51,7 @@ public class SubscriptionFragment extends BaseStateFragment<List<SubscriptionEnt
 
     ///////////////////////////////////////////////////////////////////////////
     // Fragment LifeCycle
-    ///////////////////////////////////////////////////////////////////////////
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && activity != null) {
-            activity.getSupportActionBar()
-                    .setTitle(R.string.tab_subscriptions);
-        }
-    }
-
+    //////////////////////////////////////////////////////////////////////////
 
     @Override
     public void onAttach(Context context) {
@@ -75,7 +64,6 @@ public class SubscriptionFragment extends BaseStateFragment<List<SubscriptionEnt
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         activity.getSupportActionBar().setDisplayShowTitleEnabled(true);
-        activity.setTitle(R.string.tab_subscriptions);
         if(useAsFrontPage) {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
