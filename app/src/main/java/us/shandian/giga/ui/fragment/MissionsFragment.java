@@ -26,12 +26,12 @@ import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.FBAdUtils;
 
 import us.shandian.giga.get.DownloadManager;
-import us.shandian.giga.service.DownloadManagerService;
+import us.shandian.giga.service.MissionManagerService;
 import us.shandian.giga.ui.adapter.MissionAdapter;
 
 public abstract class MissionsFragment extends Fragment {
     private DownloadManager mManager;
-    private DownloadManagerService.DMBinder mBinder;
+    private MissionManagerService.DMBinder mBinder;
 
     private SharedPreferences mPrefs;
     private boolean mLinear;
@@ -47,7 +47,7 @@ public abstract class MissionsFragment extends Fragment {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder binder) {
-            mBinder = (DownloadManagerService.DMBinder) binder;
+            mBinder = (MissionManagerService.DMBinder) binder;
             mManager = setupDownloadManager(mBinder);
             updateList();
         }
@@ -71,7 +71,7 @@ public abstract class MissionsFragment extends Fragment {
 
         // Bind the service
         Intent i = new Intent();
-        i.setClass(getActivity(), DownloadManagerService.class);
+        i.setClass(getActivity(), MissionManagerService.class);
         getActivity().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
 
         // Views
@@ -163,5 +163,5 @@ public abstract class MissionsFragment extends Fragment {
         mPrefs.edit().putBoolean("linear", mLinear).commit();
     }
 
-    protected abstract DownloadManager setupDownloadManager(DownloadManagerService.DMBinder binder);
+    protected abstract DownloadManager setupDownloadManager(MissionManagerService.DMBinder binder);
 }

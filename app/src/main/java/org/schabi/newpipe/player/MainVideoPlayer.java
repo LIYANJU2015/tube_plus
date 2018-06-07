@@ -38,7 +38,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -64,7 +63,6 @@ import org.schabi.newpipe.util.AnimationUtils;
 import org.schabi.newpipe.util.ListHelper;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.PermissionHelper;
-import org.schabi.newpipe.util.ThemeHelper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -80,7 +78,7 @@ import static org.schabi.newpipe.util.AnimationUtils.animateView;
 public final class MainVideoPlayer extends Activity {
     private static final String TAG = ".MainVideoPlayer";
     private static final boolean DEBUG = BasePlayer.DEBUG;
-    private static final String PLAYER_STATE_INTENT = "player_state_intent";
+    private static final String PLAYER_STATE_INTENT = "player_2state2_intent";
 
     private GestureDetector gestureDetector;
 
@@ -96,9 +94,9 @@ public final class MainVideoPlayer extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.LightTheme);
         if (DEBUG) Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
         defaultPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        ThemeHelper.setTheme(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) getWindow().setStatusBarColor(Color.BLACK);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 

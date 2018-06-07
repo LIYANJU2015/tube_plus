@@ -2,11 +2,9 @@ package org.schabi.newpipe.download;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,34 +14,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.ads.Ad;
 
-import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.settings.SettingsActivity;
 import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.FBAdUtils;
-import org.schabi.newpipe.util.FacebookReport;
-import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.Utils;
 
-import us.shandian.giga.service.DownloadManagerService;
+import us.shandian.giga.service.MissionManagerService;
 import us.shandian.giga.ui.fragment.AllMissionsFragment;
 import us.shandian.giga.ui.fragment.MissionsFragment;
-import us.shandian.giga.util.Utility;
 
-public class DownloadActivity extends AppCompatActivity {
+public class MissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Service
         Intent i = new Intent();
-        i.setClass(this, DownloadManagerService.class);
+        i.setClass(this, MissionManagerService.class);
         startService(i);
 
-        ThemeHelper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_downloader);
         Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));

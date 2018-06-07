@@ -15,8 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.schabi.newpipe.MainActivity;
 import org.schabi.newpipe.R;
-import org.schabi.newpipe.about.AboutActivity;
-import org.schabi.newpipe.download.DownloadActivity;
+import org.schabi.newpipe.download.MissionActivity;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.ServiceList;
 import org.schabi.newpipe.extractor.StreamingService;
@@ -247,10 +246,6 @@ public class NavigationHelper {
         context.startActivity(mIntent);
     }
 
-    public static void openAbout(Context context) {
-        Intent intent = new Intent(context, AboutActivity.class);
-        context.startActivity(intent);
-    }
 
     public static void openHistory(Context context) {
         Intent intent = new Intent(context, HistoryActivity.class);
@@ -266,7 +261,7 @@ public class NavigationHelper {
         if (!PermissionHelper.checkStoragePermissions(activity)) {
             return false;
         }
-        Intent intent = new Intent(activity, DownloadActivity.class);
+        Intent intent = new Intent(activity, MissionActivity.class);
         activity.startActivity(intent);
         return true;
     }

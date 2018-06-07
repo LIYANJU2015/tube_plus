@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity(tableName = WatchHistoryEntry.TABLE_NAME)
 public class WatchHistoryEntry extends HistoryEntry {
 
-    public static final String TABLE_NAME = "watch_history";
+    public static final String TABLE_NAME = "look_history";
     public static final String TITLE = "title";
     public static final String URL = "url";
     public static final String STREAM_ID = "stream_id";

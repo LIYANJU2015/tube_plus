@@ -23,7 +23,7 @@ import com.rating.RatingActivity;
 
 import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
-import org.schabi.newpipe.download.DownloadActivity;
+import org.schabi.newpipe.download.MissionActivity;
 import org.schabi.newpipe.settings.NewPipeSettings;
 import org.schabi.newpipe.util.FacebookReport;
 
@@ -37,9 +37,9 @@ import us.shandian.giga.get.sqlite.SQLiteDownloadDataSource;
 
 import static org.schabi.newpipe.BuildConfig.DEBUG;
 
-public class DownloadManagerService extends Service {
+public class MissionManagerService extends Service {
 
-    private static final String TAG = DownloadManagerService.class.getSimpleName();
+    private static final String TAG = MissionManagerService.class.getSimpleName();
 
     /**
      * Message code of update messages stored as {@link Message#what}.
@@ -92,7 +92,7 @@ public class DownloadManagerService extends Service {
             }
         }
 
-        Intent openDownloadListIntent = new Intent(this, DownloadActivity.class)
+        Intent openDownloadListIntent = new Intent(this, MissionActivity.class)
                 .setAction(Intent.ACTION_MAIN);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
@@ -221,7 +221,7 @@ public class DownloadManagerService extends Service {
     }
 
     public static void startMission(Context context, String url, String location, String name, boolean isAudio, int threads) {
-        Intent intent = new Intent(context, DownloadManagerService.class);
+        Intent intent = new Intent(context, MissionManagerService.class);
         intent.setAction(Intent.ACTION_RUN);
         intent.setData(Uri.parse(url));
         intent.putExtra(EXTRA_NAME, name);

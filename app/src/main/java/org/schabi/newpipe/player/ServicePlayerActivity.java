@@ -40,7 +40,6 @@ import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.Localization;
 import org.schabi.newpipe.util.NavigationHelper;
-import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.Utils;
 
 import static org.schabi.newpipe.player.helper.PlayerHelper.formatPitch;
@@ -118,7 +117,7 @@ public abstract class ServicePlayerActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeHelper.setTheme(this);
+        setTheme(R.style.LightTheme);
         setContentView(R.layout.activity_player_queue_control);
         Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
         rootView = findViewById(R.id.main_content);

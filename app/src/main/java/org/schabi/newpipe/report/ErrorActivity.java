@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,7 +34,6 @@ import org.schabi.newpipe.Downloader;
 import org.schabi.newpipe.MainActivity;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.utils.Parser;
-import org.schabi.newpipe.util.ThemeHelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -72,8 +70,6 @@ public class ErrorActivity extends AppCompatActivity {
     public static final String ERROR_INFO = "error_info";
     public static final String ERROR_LIST = "error_list";
 
-    public static final String ERROR_EMAIL_ADDRESS = "crashreport@newpipe.schabi.org";
-    public static final String ERROR_EMAIL_SUBJECT = "Exception in NewPipe " + BuildConfig.VERSION_NAME;
     Thread globIpRangeThread;
     private String[] errorList;
     private ErrorInfo errorInfo;
@@ -169,7 +165,6 @@ public class ErrorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeHelper.setTheme(this);
         setContentView(R.layout.activity_error);
 
         Intent intent = getIntent();
@@ -202,13 +197,6 @@ public class ErrorActivity extends AppCompatActivity {
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:" + ERROR_EMAIL_ADDRESS))
-                        .putExtra(Intent.EXTRA_SUBJECT, ERROR_EMAIL_SUBJECT)
-                        .putExtra(Intent.EXTRA_TEXT, buildJson());
-
-                startActivity(Intent.createChooser(intent, "Send Email"));
             }
         });
         reportButton.setEnabled(false);

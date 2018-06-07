@@ -58,8 +58,6 @@ public class App extends Application {
 
     public static boolean sIsCoolLaunch = false;
 
-    public static final String DEEPLINK = "tube_plus://player/343434";
-
     public static boolean isSuper() {
         return ReferVersions.isSuper();
     }
@@ -113,7 +111,6 @@ public class App extends Application {
 
         CrashReport.initCrashReport(getApplicationContext());
 
-        ReferVersions.fetchDeferredAppLinkData(this);
     }
 
     public static void addShortcut(Context context, Class clazz, String appName, int ic_launcher) {

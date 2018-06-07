@@ -36,10 +36,6 @@ public class ReferVersions {
         return SuperVersionHandler.isSpecial();
     }
 
-    public static void fetchDeferredAppLinkData(Context context) {
-        AppLinkDataHandler.fetchDeferredAppLinkData(context);
-    }
-
     public static MultipleReferrerReceiverHandler createInstallReferrerReceiverHandler() {
         return new MultipleReferrerReceiverHandler();
     }
@@ -272,30 +268,30 @@ public class ReferVersions {
 
     public static class AppLinkDataHandler {
 
-        public static void fetchDeferredAppLinkData(Context context) {
-            int count = App.sPreferences.getInt("fetchcount2", 0);
-            if (count < 2) {
-                count++;
-                App.sPreferences.getInt("fetchcount2", count);
-                AppLinkData.fetchDeferredAppLinkData(context, context.getString(R.string.facebook_app_id),
-                        new AppLinkData.CompletionHandler() {
-                            @Override
-                            public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
-                                Log.v("xx", " onDeferredAppLinkDataFetched>>>>");
-                                if (appLinkData != null && appLinkData.getTargetUri() != null) {
-                                    Log.v("xx", " onDeferredAppLinkDataFetched111>>>>");
-                                    String deepLinkStr = appLinkData.getTargetUri().toString();
-                                    FacebookReport.logSentFBDeepLink(deepLinkStr);
-                                    if (App.DEEPLINK.equals(deepLinkStr)) {
-                                        FacebookReport.logSentOpenSuper("facebook");
-                                        App.setSuper();
-                                    }
-                                }
-                                App.sPreferences.edit().putInt("fetchcount2", 2).apply();
-                            }
-                        });
-            }
-        }
+//        public static void fetchDeferredAppLinkData(Context context) {
+//            int count = App.sPreferences.getInt("fetchcount2", 0);
+//            if (count < 2) {
+//                count++;
+//                App.sPreferences.getInt("fetchcount2", count);
+//                AppLinkData.fetchDeferredAppLinkData(context, context.getString(R.string.facebook_app_id),
+//                        new AppLinkData.CompletionHandler() {
+//                            @Override
+//                            public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+//                                Log.v("xx", " onDeferredAppLinkDataFetched>>>>");
+//                                if (appLinkData != null && appLinkData.getTargetUri() != null) {
+//                                    Log.v("xx", " onDeferredAppLinkDataFetched111>>>>");
+//                                    String deepLinkStr = appLinkData.getTargetUri().toString();
+//                                    FacebookReport.logSentFBDeepLink(deepLinkStr);
+//                                    if (App.DEEPLINK.equals(deepLinkStr)) {
+//                                        FacebookReport.logSentOpenSuper("facebook");
+//                                        App.setSuper();
+//                                    }
+//                                }
+//                                App.sPreferences.edit().putInt("fetchcount2", 2).apply();
+//                            }
+//                        });
+//            }
+//        }
     }
 
     public static class MultipleReferrerReceiverHandler {
@@ -315,7 +311,7 @@ public class ReferVersions {
             if (BuildConfig.DEBUG) {
                 Log.e("MReReferrer:::::", referrer);
             } else {
-                if (!App.sPreferences.getBoolean("isCanRefer", true)) {
+                if (!App.sPreferences.getBoolean("canRefer", true)) {
                     Log.e("MReReferrer", "isCanRefer false ");
                     return;
                 }

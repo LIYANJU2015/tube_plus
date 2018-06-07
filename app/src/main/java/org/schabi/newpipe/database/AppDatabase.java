@@ -16,7 +16,7 @@ import org.schabi.newpipe.database.subscription.SubscriptionEntity;
 @Database(entities = {SubscriptionEntity.class, WatchHistoryEntry.class, SearchHistoryEntry.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public static final String DATABASE_NAME = "newpipe.db";
+    public static final String DATABASE_NAME = "playtube.db";
 
     public abstract SubscriptionDAO subscriptionDAO();
 

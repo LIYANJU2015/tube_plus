@@ -30,7 +30,7 @@ import java.util.Map;
 
 import us.shandian.giga.get.DownloadManager;
 import us.shandian.giga.get.DownloadMission;
-import us.shandian.giga.service.DownloadManagerService;
+import us.shandian.giga.service.MissionManagerService;
 import us.shandian.giga.ui.common.ProgressDrawable;
 import us.shandian.giga.util.Utility;
 
@@ -49,10 +49,10 @@ public class MissionAdapter extends RecyclerView.Adapter<MissionAdapter.ViewHold
     private Context mContext;
     private LayoutInflater mInflater;
     private DownloadManager mManager;
-    private DownloadManagerService.DMBinder mBinder;
+    private MissionManagerService.DMBinder mBinder;
     private int mLayout;
 
-    public MissionAdapter(Context context, DownloadManagerService.DMBinder binder, DownloadManager manager, boolean isLinear) {
+    public MissionAdapter(Context context, MissionManagerService.DMBinder binder, DownloadManager manager, boolean isLinear) {
         mContext = context;
         mManager = manager;
         mBinder = binder;

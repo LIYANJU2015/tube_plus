@@ -20,7 +20,6 @@ import com.jakewharton.rxbinding2.view.RxView;
 
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.settings.SettingsActivity;
-import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.Utils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -47,7 +46,6 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeHelper.setTheme(this);
         setContentView(R.layout.activity_history);
         Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
 

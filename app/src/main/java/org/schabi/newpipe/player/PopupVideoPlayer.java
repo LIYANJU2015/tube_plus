@@ -80,7 +80,6 @@ import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.ExtractorHelper;
 import org.schabi.newpipe.util.ListHelper;
 import org.schabi.newpipe.util.NavigationHelper;
-import org.schabi.newpipe.util.ThemeHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -102,13 +101,13 @@ public final class PopupVideoPlayer extends Service {
     private static final boolean DEBUG = BasePlayer.DEBUG;
 
     private static final int NOTIFICATION_ID = 40028922;
-    public static final String ACTION_CLOSE = "org.schabi.newpipe.player.PopupVideoPlayer.CLOSE";
-    public static final String ACTION_PLAY_PAUSE = "org.schabi.newpipe.player.PopupVideoPlayer.PLAY_PAUSE";
-    public static final String ACTION_REPEAT = "org.schabi.newpipe.player.PopupVideoPlayer.REPEAT";
+    public static final String ACTION_CLOSE = "org.playtube.player.PopupVideoPlayer.CLOSE";
+    public static final String ACTION_PLAY_PAUSE = "org.playtube.player.PopupVideoPlayer.PLAY_PAUSE";
+    public static final String ACTION_REPEAT = "org.playtube.player.PopupVideoPlayer.REPEAT";
 
-    private static final String POPUP_SAVED_WIDTH = "popup_saved_width";
-    private static final String POPUP_SAVED_X = "popup_saved_x";
-    private static final String POPUP_SAVED_Y = "popup_saved_y";
+    private static final String POPUP_SAVED_WIDTH = "popup2_saved2_width";
+    private static final String POPUP_SAVED_X = "popup2_saved2_x";
+    private static final String POPUP_SAVED_Y = "popup2_saved2_y";
 
     private WindowManager windowManager;
     private WindowManager.LayoutParams windowLayoutParams;
@@ -143,12 +142,12 @@ public final class PopupVideoPlayer extends Service {
 
     @Override
     public void onCreate() {
+        setTheme(R.style.LightTheme);
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         notificationManager = ((NotificationManager) getSystemService(NOTIFICATION_SERVICE));
 
         lockManager = new LockManager(this);
         playerImpl = new VideoPlayerImpl(this);
-        ThemeHelper.setTheme(this);
 
         mBinder = new PlayerServiceBinder(playerImpl);
     }

@@ -3,6 +3,7 @@ package us.shandian.giga.util;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -25,6 +26,16 @@ public class Utility {
         VIDEO,
         MUSIC,
         UNKNOWN
+    }
+
+    private static final Handler sHandler = new Handler();
+
+    public static void runUIThread(Runnable runnable) {
+        sHandler.post(runnable);
+    }
+
+    public static void runUIThread(Runnable runnable, long delay) {
+        sHandler.postDelayed(runnable, delay);
     }
 
     public static String formatBytes(long bytes) {

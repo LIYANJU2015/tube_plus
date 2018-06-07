@@ -23,27 +23,27 @@ public class DownloadMissionSQLiteHelper extends SQLiteOpenHelper {
     /**
      * The table name of download missions
      */
-    static final String MISSIONS_TABLE_NAME = "download_missions";
+    static final String MISSIONS_TABLE_NAME = "cache_missions";
 
     /**
      * The key to the directory location of the mission
      */
-    static final String KEY_LOCATION = "location";
+    static final String KEY_LOCATION = "cache_location";
     /**
      * The key to the url of a mission
      */
-    static final String KEY_URL = "url";
+    static final String KEY_URL = "cache_url";
     /**
      * The key to the name of a mission
      */
-    static final String KEY_NAME = "name";
+    static final String KEY_NAME = "cache_name";
 
     /**
      * The key to the done.
      */
-    static final String KEY_DONE = "bytes_downloaded";
+    static final String KEY_DONE = "cache_bytes_downloaded";
 
-    static final String KEY_TIMESTAMP = "timestamp";
+    static final String KEY_TIMESTAMP = "cache_timestamp";
 
     /**
      * The statement to create the table

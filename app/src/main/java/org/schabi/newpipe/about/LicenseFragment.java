@@ -126,7 +126,6 @@ public class LicenseFragment extends Fragment {
     private static class OnReadFullLicenseClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            LicenseFragment.showLicense(v.getContext(), StandardLicenses.GPL3);
         }
     }
 }

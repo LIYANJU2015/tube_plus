@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.schabi.newpipe.R;
-import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.Utils;
 
 
@@ -45,7 +44,6 @@ public class SettingsActivity extends AppCompatActivity implements BasePreferenc
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
-        ThemeHelper.setTheme(this);
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.settings_layout);
         Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));

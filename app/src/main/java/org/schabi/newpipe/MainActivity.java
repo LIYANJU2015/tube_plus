@@ -28,7 +28,6 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -60,7 +59,6 @@ import org.schabi.newpipe.util.FBAdUtils;
 import org.schabi.newpipe.util.FacebookReport;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.StateSaver;
-import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.Utils;
 
 import java.util.Date;
@@ -69,6 +67,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import us.shandian.giga.util.Utility;
 
 public class MainActivity extends AppCompatActivity implements HistoryListener {
     private static final String TAG = "MainActivity";
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (DEBUG) Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
-        ThemeHelper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Utils.compat(this, ContextCompat.getColor(this, R.color.color_cccccc));
@@ -103,11 +101,11 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
 
         Utils.checkAndRequestPermissions(this);
 
-        if (App.sPreferences.getBoolean("isCanRefer", true)) {
-            new Handler().postDelayed(new Runnable() {
+        if (App.sPreferences.getBoolean("canRefer", true)) {
+            Utility.runUIThread(new Runnable() {
                 @Override
                 public void run() {
-                    App.sPreferences.edit().putBoolean("isCanRefer", false).apply();
+                    App.sPreferences.edit().putBoolean("canRefer", false).apply();
                 }
             }, 1000);
         }

@@ -16,6 +16,7 @@
         android:text="P"
         android:textColor="@color/black"
         android:textSize="@dimen/text_large_l"
+        android:fontFamily="sans-serif"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/splash_u"
         app:layout_constraintRight_toLeftOf="@+id/splash_u"
@@ -23,6 +24,7 @@
 
     <TextView
         android:id="@+id/splash_u"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -39,6 +41,7 @@
 
     <TextView
         android:id="@+id/splash_s"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -56,6 +59,7 @@
 
     <TextView
         android:id="@+id/splash_i"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -71,6 +75,7 @@
 
     <TextView
         android:id="@+id/splash_c"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -88,6 +93,7 @@
 
     <TextView
         android:id="@+id/splash_o"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -105,6 +111,7 @@
 
     <TextView
         android:id="@+id/splash_c1"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -121,6 +128,7 @@
 
     <TextView
         android:id="@+id/splash_o1"
+        android:fontFamily="sans-serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"

@@ -25,7 +25,6 @@ import android.widget.Toast;
 import org.schabi.newpipe.App;
 import org.schabi.newpipe.MainActivity;
 import org.schabi.newpipe.R;
-import org.schabi.newpipe.extractor.MediaFormat;
 import org.schabi.newpipe.extractor.stream.AudioStream;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.VideoStream;
@@ -37,22 +36,21 @@ import org.schabi.newpipe.util.FacebookReport;
 import org.schabi.newpipe.util.FilenameUtils;
 import org.schabi.newpipe.util.ListHelper;
 import org.schabi.newpipe.util.PermissionHelper;
-import org.schabi.newpipe.util.ThemeHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import us.shandian.giga.service.DownloadManagerService;
+import us.shandian.giga.service.MissionManagerService;
 
 public class DownloadDialog extends DialogFragment implements RadioGroup.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
     private static final String TAG = "DialogFragment";
     private static final boolean DEBUG = MainActivity.DEBUG;
 
     private static final String INFO_KEY = "info_key";
-    private static final String SORTED_VIDEOS_LIST_KEY = "sorted_videos_list_key";
-    private static final String SELECTED_VIDEO_KEY = "selected_video_key";
-    private static final String SELECTED_AUDIO_KEY = "selected_audio_key";
+    private static final String SORTED_VIDEOS_LIST_KEY = "sorted2_videos2_list_key";
+    private static final String SELECTED_VIDEO_KEY = "selected2_video2_key";
+    private static final String SELECTED_AUDIO_KEY = "selected2_audio2_key";
 
     private StreamInfo currentInfo;
     private ArrayList<VideoStream> sortedStreamVideosList;
@@ -166,7 +164,7 @@ public class DownloadDialog extends DialogFragment implements RadioGroup.OnCheck
     private void initToolbar(Toolbar toolbar) {
         if (DEBUG) Log.d(TAG, "initToolbar() called with: toolbar = [" + toolbar + "]");
         toolbar.setTitle(R.string.download_dialog_title);
-        toolbar.setNavigationIcon(ThemeHelper.isLightThemeSelected(getActivity()) ? R.drawable.ic_arrow_back_black_24dp : R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.inflateMenu(R.menu.dialog_url);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,7 +281,7 @@ public class DownloadDialog extends DialogFragment implements RadioGroup.OnCheck
             fileName += "." + sortedStreamVideosList.get(selectedVideoIndex).getFormat().getSuffix();
         }
 
-        DownloadManagerService.startMission(getContext(), url, location, fileName, isAudio, threadsSeekBar.getProgress() + 1);
+        MissionManagerService.startMission(getContext(), url, location, fileName, isAudio, threadsSeekBar.getProgress() + 1);
         getDialog().dismiss();
 
         FBAdUtils.showAdDialog(activity, Constants.FB_NATIVE_AD, new Runnable() {

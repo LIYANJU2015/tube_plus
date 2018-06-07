@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.webkit.WebView;
-import org.schabi.newpipe.R;
-import org.schabi.newpipe.util.ThemeHelper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -56,7 +54,7 @@ public class LicenseFragmentHelper extends AsyncTask<Object, Void, Integer> {
         }
 
         String licenseContent = "";
-        String webViewData;
+        String webViewData = null;
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(context.getAssets().open(license.getFilename()), "UTF-8"));
             String str;
@@ -67,36 +65,12 @@ public class LicenseFragmentHelper extends AsyncTask<Object, Void, Integer> {
 
             // split the HTML file and insert the stylesheet into the HEAD of the file
             String[] insert = licenseContent.split("</head>");
-            webViewData = insert[0] + "<style type=\"text/css\">"
-                    + getLicenseStylesheet(context) + "</style></head>"
-                    + insert[1];
         } catch (Exception e) {
-            throw new NullPointerException("could not get license file:" + getLicenseStylesheet(context));
+            throw new NullPointerException("could not get license file:" );
         }
         return webViewData;
     }
 
-    /**
-     *
-     * @param context
-     * @return String which is a CSS stylesheet according to the context's theme
-     */
-    public static String getLicenseStylesheet(Context context) {
-        boolean isLightTheme = ThemeHelper.isLightThemeSelected(context);
-        return "body{padding:12px 15px;margin:0;background:#"
-                + getHexRGBColor(context, isLightTheme
-                    ? R.color.light_license_background_color
-                    : R.color.dark_license_background_color)
-                + ";color:#"
-                + getHexRGBColor(context, isLightTheme
-                    ? R.color.light_license_text_color
-                    : R.color.dark_license_text_color) + ";}"
-                + "a[href]{color:#"
-                + getHexRGBColor(context, isLightTheme
-                    ? R.color.light_youtube_primary_color
-                    : R.color.dark_youtube_primary_color) + ";}"
-                + "pre{white-space: pre-wrap;}";
-    }
 
     /**
      * Cast R.color to a hexadecimal color value
