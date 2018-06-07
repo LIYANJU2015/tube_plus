@@ -27,8 +27,6 @@ import java.io.InterruptedIOException;
 import java.net.SocketException;
 
 import io.reactivex.annotations.NonNull;
-import io.reactivex.exceptions.CompositeException;
-import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 import us.shandian.giga.util.ReferVersions;
@@ -57,6 +55,8 @@ public class App extends Application {
     public static Context sContext;
 
     public static SharedPreferences sPreferences;
+
+    public static boolean sIsCoolLaunch = false;
 
     public static final String DEEPLINK = "tube_plus://player/343434";
 
@@ -88,6 +88,8 @@ public class App extends Application {
         sContext = this;
         sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        sIsCoolLaunch = true;
+
         // Initialize settings first because others inits can use its values
         SettingsActivity.initSettings(this);
         FBAdUtils.init(this);
@@ -106,7 +108,7 @@ public class App extends Application {
 
         if (!sPreferences.getBoolean("add_Shortcut2", false)) {
             sPreferences.edit().putBoolean("add_Shortcut2", true).apply();
-            addShortcut(sContext, WelcomeActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
+            addShortcut(sContext, SplashActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
         }
 
         CrashReport.initCrashReport(getApplicationContext());

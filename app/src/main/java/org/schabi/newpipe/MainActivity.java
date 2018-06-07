@@ -175,10 +175,11 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
             if (((BackPressable) fragment).onBackPressed()) return;
         }
 
-
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            finish();
-        } else super.onBackPressed();
+            moveTaskToBack(true);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /*//////////////////////////////////////////////////////////////////////////
