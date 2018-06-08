@@ -20,19 +20,13 @@ android {
     }
 
     signingConfigs {
-        release {
-            storeFile file("tube_plus.jks")
-            storePassword "tubeasdf1234"
-            keyAlias "tube_plus"
-            keyPassword "tubeasdf1234"
-        }
 
-//        release {
-//            storeFile file("tube_plus.jks")
-//            storePassword "!@c20180501"
-//            keyAlias "playtube_float"
-//            keyPassword "!@c20180501"
-//        }
+        release {
+            storeFile file("playtube_float.jks")
+            storePassword "!@c20180501"
+            keyAlias "playtube_float"
+            keyPassword "!@c20180501"
+        }
     }
 
 
