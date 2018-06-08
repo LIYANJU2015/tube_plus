@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -26,6 +26,13 @@ android {
             keyAlias "tube_plus"
             keyPassword "tubeasdf1234"
         }
+
+//        release {
+//            storeFile file("tube_plus.jks")
+//            storePassword "!@c20180501"
+//            keyAlias "playtube_float"
+//            keyPassword "!@c20180501"
+//        }
     }
 
 
