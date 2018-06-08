@@ -36,7 +36,7 @@ import org.schabi.newpipe.extractor.exceptions.ExtractionException;
 import org.schabi.newpipe.extractor.stream.StreamInfoItem;
 import org.tube.player.fragments.list.BaseListInfoFragment;
 import org.tube.player.fragments.subscription.SubscriptionService;
-import org.tube.player.info_list.InfoItemDialog;
+import org.tube.player.infolist.InfoItemDialog;
 import org.tube.player.playlist.ChannelPlayQueue;
 import org.tube.player.playlist.PlayQueue;
 import org.tube.player.playlist.SinglePlayQueue;

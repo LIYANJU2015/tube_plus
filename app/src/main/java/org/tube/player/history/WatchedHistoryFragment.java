@@ -20,7 +20,7 @@ import org.tube.player.NewPipeDatabase;
 import org.tube.player.R;
 import org.tube.player.database.history.dao.HistoryDAO;
 import org.tube.player.database.history.model.WatchHistoryEntry;
-import org.tube.player.info_list.holder.StreamInfoItemHolder;
+import org.tube.player.infolist.holder.StreamInfoItemHolder;
 import org.tube.player.util.Localization;
 import org.tube.player.util.NavigationHelper;
 

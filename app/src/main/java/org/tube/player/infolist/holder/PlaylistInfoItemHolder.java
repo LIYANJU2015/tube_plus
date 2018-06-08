@@ -1,4 +1,4 @@
-package org.tube.player.info_list.holder;
+package org.tube.player.infolist.holder;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import org.tube.player.R;
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.playlist.PlaylistInfoItem;
-import org.tube.player.info_list.InfoItemBuilder;
+import org.tube.player.infolist.InfoItemBuilder;
 
 public class PlaylistInfoItemHolder extends InfoItemHolder {
     public final ImageView itemThumbnailView;

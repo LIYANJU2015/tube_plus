@@ -1,4 +1,4 @@
-package org.tube.player.info_list.holder;
+package org.tube.player.infolist.holder;
 
 import android.text.TextUtils;
 import android.view.ViewGroup;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.stream.StreamInfoItem;
-import org.tube.player.info_list.InfoItemBuilder;
+import org.tube.player.infolist.InfoItemBuilder;
 import org.tube.player.util.Localization;
 
 /*

@@ -1,4 +1,4 @@
-package org.tube.player.info_list.holder;
+package org.tube.player.infolist.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import org.schabi.newpipe.extractor.InfoItem;
-import org.tube.player.info_list.InfoItemBuilder;
+import org.tube.player.infolist.InfoItemBuilder;
 
 /*
  * Created by Christian Schabesberger on 12.02.17.

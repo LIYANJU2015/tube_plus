@@ -1,4 +1,4 @@
-package org.tube.player.info_list;
+package org.tube.player.infolist;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -10,13 +10,13 @@ import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.channel.ChannelInfoItem;
 import org.schabi.newpipe.extractor.playlist.PlaylistInfoItem;
 import org.schabi.newpipe.extractor.stream.StreamInfoItem;
-import org.tube.player.info_list.InfoItemBuilder.OnInfoItemSelectedListener;
-import org.tube.player.info_list.holder.ChannelInfoItemHolder;
-import org.tube.player.info_list.holder.ChannelMiniInfoItemHolder;
-import org.tube.player.info_list.holder.InfoItemHolder;
-import org.tube.player.info_list.holder.PlaylistInfoItemHolder;
-import org.tube.player.info_list.holder.StreamInfoItemHolder;
-import org.tube.player.info_list.holder.StreamMiniInfoItemHolder;
+import org.tube.player.infolist.InfoItemBuilder.OnInfoItemSelectedListener;
+import org.tube.player.infolist.holder.ChannelInfoItemHolder;
+import org.tube.player.infolist.holder.ChannelMiniInfoItemHolder;
+import org.tube.player.infolist.holder.InfoItemHolder;
+import org.tube.player.infolist.holder.PlaylistInfoItemHolder;
+import org.tube.player.infolist.holder.StreamInfoItemHolder;
+import org.tube.player.infolist.holder.StreamMiniInfoItemHolder;
 import org.tube.player.util.AdViewWrapperAdapter;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.tube.player.info_list.holder;
+package org.tube.player.infolist.holder;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.channel.ChannelInfoItem;
-import org.tube.player.info_list.InfoItemBuilder;
+import org.tube.player.infolist.InfoItemBuilder;
 import org.tube.player.util.Localization;
 
 import de.hdodenhof.circleimageview.CircleImageView;

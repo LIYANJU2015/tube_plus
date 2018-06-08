@@ -1,4 +1,4 @@
-package org.tube.player.info_list;
+package org.tube.player.infolist;
 
 import android.app.Activity;
 import android.app.AlertDialog;

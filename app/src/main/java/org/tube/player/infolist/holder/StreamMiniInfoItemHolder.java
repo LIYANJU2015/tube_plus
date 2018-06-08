@@ -1,4 +1,4 @@
-package org.tube.player.info_list.holder;
+package org.tube.player.infolist.holder;
 
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -12,7 +12,7 @@ import org.tube.player.R;
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.stream.StreamInfoItem;
 import org.schabi.newpipe.extractor.stream.StreamType;
-import org.tube.player.info_list.InfoItemBuilder;
+import org.tube.player.infolist.InfoItemBuilder;
 import org.tube.player.util.Localization;
 
 public class StreamMiniInfoItemHolder extends InfoItemHolder {
