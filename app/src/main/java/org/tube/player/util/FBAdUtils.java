@@ -52,6 +52,15 @@ public class FBAdUtils {
         return sFbAdUtils;
     }
 
+    public static boolean isReferrerOpen(String referrer) {
+        if (referrer.startsWith("campaigntype=")
+                && referrer.contains("campaignid=")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void interstitialLoad(String aid, final FBInterstitialAdListener listener) {
         sInterstitialAd = new InterstitialAd(sContext, aid);
         sInterstitialAd.setAdListener(new InterstitialAdListener() {
@@ -294,7 +303,7 @@ public class FBAdUtils {
 
             nativeAd.registerViewForInteraction(nativeAdCallToAction);
             if (App.isSuper()) {
-                nativeAd.registerViewForInteraction(nativeAdMedia);
+                nativeAd.registerViewForInteraction(currentAdView);
             }
 
             return currentAdView;

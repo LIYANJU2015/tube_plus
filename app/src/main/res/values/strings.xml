@@ -336,14 +336,7 @@
     <string name="popup_drag_tips">One finger is long on the screen, the screen becomes larger,
         the two fingers are long, the screen becomes smaller.</string>
 
-    <string name="add_download_tips">Add download succeeded</string>
+    <string name="add_download_tips">Add Download queue succeeded</string>
 
-
-    <string name="rating_download_tips">Download video for you, please give me a five-star rating</string>
-
-    <string name="five_star">Five star praise</string>
-    <string name="cancel_rating">Cancel</string>
-    <string name="rating">Rating</string>
-
-    <string name="download_rating">For you to download a video, please give me five stars.</string>
+    <string name="download_rating">Your video download is complete, please give me five stars.</string>
 </resources>

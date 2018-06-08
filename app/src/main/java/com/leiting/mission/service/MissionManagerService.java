@@ -23,7 +23,7 @@ import com.rating.RatingActivity;
 
 import org.tube.player.App;
 import org.tube.player.R;
-import org.tube.player.download.MissionActivity;
+import org.tube.player.mission.MissionActivity;
 import org.tube.player.settings.NewPipeSettings;
 import org.tube.player.util.FacebookReport;
 

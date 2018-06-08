@@ -119,7 +119,11 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
         }
 
         disposeHistory();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
         FBAdUtils.get().loadFBAds(Constants.FB_NATIVE_AD);
     }
 

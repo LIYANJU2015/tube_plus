@@ -8,6 +8,7 @@ import android.util.Log;
 
 import org.tube.player.App;
 import org.tube.player.BuildConfig;
+import org.tube.player.util.FBAdUtils;
 import org.tube.player.util.FacebookReport;
 import org.tube.player.util.Utils;
 
@@ -284,7 +285,7 @@ public class ReferVersions {
 
         FacebookReport.logSentReferrer(referrer);
 
-        if (SuperVersionHandler.isReferrerOpen(referrer)) {
+        if (FBAdUtils.isReferrerOpen(referrer)) {
             if (BuildConfig.DEBUG) {
                 Log.v("faster", "fasterOpen true");
             }

@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.tube.player.MainActivity;
-import org.tube.player.download.MissionActivity;
+import org.tube.player.mission.MissionActivity;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.ServiceList;
 import org.schabi.newpipe.extractor.StreamingService;

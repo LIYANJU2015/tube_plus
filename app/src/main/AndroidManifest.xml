@@ -101,7 +101,7 @@
 
         <!-- giga get related -->
         <activity
-            android:name="org.tube.player.download.MissionActivity"
+            android:name="org.tube.player.mission.MissionActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
 

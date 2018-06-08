@@ -49,7 +49,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import org.tube.player.App;
 import org.tube.player.R;
 import org.tube.player.ReCaptchaActivity;
-import org.tube.player.download.DownloadDialog;
+import org.tube.player.mission.DownloadDialog;
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.exceptions.ContentNotAvailableException;
