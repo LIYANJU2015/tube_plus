@@ -20,7 +20,6 @@ android {
     }
 
     signingConfigs {
-
         release {
             storeFile file("playtube_float.jks")
             storePassword "!@c20180501"
