@@ -73,11 +73,11 @@ dependencies {
 
     compile(name: 'rating-release2', ext: 'aar')
 
-    compile 'com.facebook.android:audience-network-sdk:4.+'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.facebook.android:audience-network-sdk:4.28.2'
+    implementation 'com.facebook.android:facebook-android-sdk:4.33.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     compile 'com.zhy:base-rvadapter:3.0.3'
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:crashreport:2.6.6'
 
     implementation 'com.github.TeamNewPipe:NewPipeExtractor:9de63f8c0a170a066'
 
