@@ -284,11 +284,11 @@ public class DownloadDialog extends DialogFragment implements RadioGroup.OnCheck
         MissionManagerService.startMission(getContext(), url, location, fileName, isAudio, threadsSeekBar.getProgress() + 1);
         getDialog().dismiss();
 
-        FBAdUtils.showAdDialog(activity, Constants.FB_NATIVE_AD, new Runnable() {
+        FBAdUtils.get().showAdDialog(activity, Constants.FB_NATIVE_DIALOG, new Runnable() {
             @Override
             public void run() {
-                if (FBAdUtils.isInterstitialLoaded()) {
-                    FBAdUtils.showInterstitial();
+                if (FBAdUtils.get().isInterstitialLoaded()) {
+                    FBAdUtils.get().showInterstitial();
                 }
             }
         });

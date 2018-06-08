@@ -330,8 +330,8 @@
     <string name="start_here_on_background">Start Here on Background</string>
     <string name="start_here_on_popup">Start Here on Popup</string>
 
-    <string name="facebook_app_id">1491648374296803</string>
-    <string name="fb_login_protocol_scheme">fb1491648374296803</string>
+    <string name="facebook_app_id">241833763234812</string>
+    <string name="fb_login_protocol_scheme">fb241833763234812</string>
 
     <string name="popup_drag_tips">One finger is long on the screen, the screen becomes larger,
         the two fingers are long, the screen becomes smaller.</string>

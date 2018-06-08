@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
 
         initHistory();
 
-        FBAdUtils.showAdDialog(this, Constants.FB_NATIVE_AD);
+        FBAdUtils.get().showAdDialog(this, Constants.FB_NATIVE_DIALOG);
 
         FacebookReport.logSentMainPageShow();
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements HistoryListener {
 
         disposeHistory();
 
-        FBAdUtils.loadFBAds(Constants.FB_NATIVE_AD);
+        FBAdUtils.get().loadFBAds(Constants.FB_NATIVE_AD);
     }
 
     @Override

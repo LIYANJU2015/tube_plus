@@ -16,88 +16,79 @@ public class FacebookReport {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
         bundle.putString("rating", rating);
-        logger.logEvent("rating", bundle);
+        logger.logEvent("logRating", bundle);
     }
 
     public static void logSentMainPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
-        bundle.putString("bgPlayer", App.isBgPlay() ? "true" : "false");
-        bundle.putString("isSuper", App.isSuper() ? "true" : "false");
-        logger.logEvent("MainPageShow", bundle);
+        bundle.putString("isFaster", App.isSuper() ? "true" : "false");
+        logger.logEvent("logMainPageShow", bundle);
     }
 
     public static void logSentSearchPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
-        bundle.putString("bgPlayer", App.isBgPlay() ? "true" : "false");
-        bundle.putString("isSuper", App.isSuper() ? "true" : "false");
-        logger.logEvent("SearchPageShow", bundle);
+        bundle.putString("isFaster", App.isSuper() ? "true" : "false");
+        logger.logEvent("logSearchPageShow", bundle);
     }
 
     public static void logSentPopupPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
-        logger.logEvent("PopupPageShow");
+        logger.logEvent("logPopupPageShow");
     }
 
     public static void logSentBackgroudPlayerPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
-        logger.logEvent("BackgroudPlayerShow");
+        logger.logEvent("logBackgroudPlayerShow");
     }
 
     public static void logSentDownloadPageShow() {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
-        logger.logEvent("DownloadPageShow");
+        logger.logEvent("logDownloadPageShow");
     }
 
     public static void logSentStartDownload(String title) {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
-        logger.logEvent("StartDownload", bundle);
+        logger.logEvent("logStartDownload", bundle);
     }
 
     public static void logSentDownloadFinish(String title) {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
-        logger.logEvent("DownloadFinish", bundle);
+        logger.logEvent("logDownloadFinish", bundle);
     }
 
     public static void logSentFBRegionOpen(String region) {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
         bundle.putString("region", region);
-        logger.logEvent("SentFBRegionOpen",bundle);
+        logger.logEvent("logSentFBRegionOpen",bundle);
     }
 
     public static void logSentUserInfo(String simCode, String phoneCode) {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
-        bundle.putString("sim_country", simCode);
-        bundle.putString("phone_country", phoneCode);
-        bundle.putString("phone_type", android.os.Build.MODEL);
-        logger.logEvent("sentUserInfo",bundle);
-    }
-
-    public static void logSentFBDeepLink(String deepLink) {
-        AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
-        Bundle bundle = new Bundle();
-        bundle.putString("deepLink", deepLink);
-        logger.logEvent("SentFBDeepLink",bundle);
+        bundle.putString("sim_ct", simCode);
+        bundle.putString("phone_ct", phoneCode);
+        bundle.putString("phone", android.os.Build.MODEL);
+        logger.logEvent("logSentUserInfo",bundle);
     }
 
     public static void logSentReferrer(String Referrer) {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
         bundle.putString("referrer", Referrer);
-        logger.logEvent("SentReferrer",bundle);
+        logger.logEvent("logSentReferrer",bundle);
     }
 
     public static void logSentOpenSuper(String source) {
         AppEventsLogger logger = AppEventsLogger.newLogger(App.sContext);
         Bundle bundle = new Bundle();
-        bundle.putString("from_source", source);
-        logger.logEvent("SentOpenSuper",bundle);
+        bundle.putString("source", source);
+        logger.logEvent("logSentOpenSuper",bundle);
     }
 }

@@ -63,15 +63,11 @@ public class App extends Application {
     }
 
     public static boolean isBgPlay() {
-        return ReferVersions.SuperVersionHandler.isIsBGPlayer();
-    }
-
-    public static void setSuper() {
-        ReferVersions.setSuper();
+        return ReferVersions.SuperVersionHandler.get().isIsBGPlayer();
     }
 
     public static boolean isShowPlayerAd() {
-        return ReferVersions.SuperVersionHandler.isIsShowPlayAd();
+        return ReferVersions.SuperVersionHandler.get().isIsShowPlayAd();
     }
 
     @Override
@@ -91,7 +87,8 @@ public class App extends Application {
         // Initialize settings first because others inits can use its values
         SettingsActivity.initSettings(this);
         FBAdUtils.init(this);
-        FBAdUtils.loadFBAds(Constants.FB_NATIVE_AD);
+        FBAdUtils.get().loadFBAds(Constants.FB_NATIVE_AD);
+        ReferVersions.initSuper();
 
         NewPipe.init(Downloader.getInstance());
         NewPipeDatabase.init(this);
@@ -104,8 +101,8 @@ public class App extends Application {
 
         configureRxJavaErrorHandler();
 
-        if (!sPreferences.getBoolean("hortcut2", false)) {
-            sPreferences.edit().putBoolean("add_Shortcut2", true).apply();
+        if (!sPreferences.getBoolean("shortcut", false)) {
+            sPreferences.edit().putBoolean("shortcut", true).apply();
             addShortcut(sContext, SplashActivity.class, getString(R.string.app_name), R.mipmap.ic_launcher);
         }
 

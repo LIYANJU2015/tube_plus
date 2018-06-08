@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -29,7 +30,7 @@ public class Utility {
         UNKNOWN
     }
 
-    private static final Handler sHandler = new Handler();
+    private static final Handler sHandler = new Handler(Looper.getMainLooper());
 
     public static void runUIThread(Runnable runnable) {
         sHandler.post(runnable);

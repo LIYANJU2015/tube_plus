@@ -186,11 +186,11 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
 
         FacebookReport.logSentSearchPageShow();
 
-        FBAdUtils.interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
+        FBAdUtils.get().interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
             @Override
             public void onInterstitialDismissed(Ad ad) {
                 super.onInterstitialDismissed(ad);
-                FBAdUtils.destoryInterstitial();
+                FBAdUtils.get().destoryInterstitial();
             }
         });
     }
@@ -256,17 +256,17 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
         unsetSearchListeners();
         super.onDestroyView();
 
-        FBAdUtils.loadAd(Constants.FB_NATIVE_AD);
+        FBAdUtils.get().loadAd(Constants.FB_NATIVE_AD);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        if (FBAdUtils.isInterstitialLoaded()) {
-            FBAdUtils.showInterstitial();
+        if (FBAdUtils.get().isInterstitialLoaded()) {
+            FBAdUtils.get().showInterstitial();
         }
-        FBAdUtils.destoryInterstitial();
+        FBAdUtils.get().destoryInterstitial();
 
         if (searchDisposable != null) searchDisposable.dispose();
         if (suggestionDisposable != null) suggestionDisposable.dispose();
@@ -895,14 +895,14 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
 
         if (infoListAdapter.getItemsList().size() == 0) {
             if (!result.getResults().isEmpty()) {
-                NativeAd nativeAd = FBAdUtils.nextNativieAd();
+                NativeAd nativeAd = FBAdUtils.get().nextNativieAd();
                 if (nativeAd == null || !nativeAd.isAdLoaded()) {
-                    nativeAd = FBAdUtils.getNativeAd();
+                    nativeAd = FBAdUtils.get().getNativeAd();
                 }
                 if (nativeAd != null && nativeAd.isAdLoaded() && result.getResults().size() > 3) {
                     int offsetStart = adViewWrapperAdapter.getItemCount();
                     adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
-                            AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
+                            AdViewItem(FBAdUtils.get().setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
                     infoListAdapter.addInfoItemList2(result.getResults());
                     Log.v("xx", "offsetStart: " + (offsetStart + 2));
                 } else {
@@ -923,14 +923,14 @@ public class SearchFragment extends BaseListFragment<SearchResult, ListExtractor
         showListFooter(false);
         currentPage = Integer.parseInt(result.getNextItemsUrl());
 
-        NativeAd nativeAd = FBAdUtils.nextNativieAd();
+        NativeAd nativeAd = FBAdUtils.get().nextNativieAd();
         if (nativeAd == null || !nativeAd.isAdLoaded()) {
-            nativeAd = FBAdUtils.getNativeAd();
+            nativeAd = FBAdUtils.get().getNativeAd();
         }
         if (nativeAd != null && nativeAd.isAdLoaded() && result.getNextItemsList().size() > 3) {
             int offsetStart = adViewWrapperAdapter.getItemCount();
             adViewWrapperAdapter.addAdView(offsetStart + 2, new AdViewWrapperAdapter.
-                    AdViewItem(FBAdUtils.setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
+                    AdViewItem(FBAdUtils.get().setUpItemNativeAdView(activity, nativeAd), offsetStart + 2));
             infoListAdapter.addInfoItemList2(result.getNextItemsList());
         } else {
             infoListAdapter.addInfoItemList(result.getNextItemsList());

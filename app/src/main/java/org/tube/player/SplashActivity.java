@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
 
-        setContentView(org.tube.player.R.layout.splash_activity);
+        setContentView(R.layout.splash_activity);
         initViews();
 
         App.sIsCoolLaunch = false;
@@ -46,12 +46,12 @@ public class SplashActivity extends AppCompatActivity {
     private void startMain() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
-        overridePendingTransition(org.tube.player.R.anim.switch_service_in, 0);
+        overridePendingTransition(R.anim.switch_service_in, 0);
         finish();
     }
 
     private void initViews() {
-        container = findViewById(org.tube.player.R.id.splash_container);
+        container = findViewById(R.id.splash_container);
         container.setClickable(false);
 
         ts = new TextView[]{

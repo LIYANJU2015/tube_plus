@@ -190,11 +190,11 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         showRelatedStreams = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean(getString(R.string.show_next_video_key), true);
         PreferenceManager.getDefaultSharedPreferences(activity).registerOnSharedPreferenceChangeListener(this);
 
-        FBAdUtils.interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
+        FBAdUtils.get().interstitialLoad(Constants.FB_CHANPING_HIGH_AD, new FBAdUtils.FBInterstitialAdListener(){
             @Override
             public void onInterstitialDismissed(Ad ad) {
                 super.onInterstitialDismissed(ad);
-                FBAdUtils.destoryInterstitial();
+                FBAdUtils.get().destoryInterstitial();
             }
         });
     }
@@ -248,10 +248,10 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         spinnerToolbar.setAdapter(null);
         super.onDestroyView();
 
-        if (FBAdUtils.isInterstitialLoaded()) {
-            FBAdUtils.showInterstitial();
+        if (FBAdUtils.get().isInterstitialLoaded()) {
+            FBAdUtils.get().showInterstitial();
         }
-        FBAdUtils.destoryInterstitial();
+        FBAdUtils.get().destoryInterstitial();
     }
 
     @Override
@@ -478,13 +478,13 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         setHeightThumbnail();
 
         if (App.isBgPlay() || App.isShowPlayerAd()) {
-            NativeAd nativeAd = FBAdUtils.nextNativieAd();
+            NativeAd nativeAd = FBAdUtils.get().nextNativieAd();
             if (nativeAd == null || !nativeAd.isAdLoaded()) {
-                nativeAd = FBAdUtils.getNativeAd();
+                nativeAd = FBAdUtils.get().getNativeAd();
             }
             if (nativeAd != null && nativeAd.isAdLoaded()) {
                 adFrameLayout.removeAllViews();
-                adFrameLayout.addView(FBAdUtils.setUpItemNativeAdView(activity, nativeAd));
+                adFrameLayout.addView(FBAdUtils.get().setUpItemNativeAdView(activity, nativeAd));
             }
         }
     }
@@ -1146,13 +1146,13 @@ public class VideoDetailFragment extends BaseStateFragment<StreamInfo> implement
         }
 
         if (App.isBgPlay() || App.isShowPlayerAd()) {
-            NativeAd nativeAd = FBAdUtils.nextNativieAd();
+            NativeAd nativeAd = FBAdUtils.get().nextNativieAd();
             if (nativeAd == null || !nativeAd.isAdLoaded()) {
-                nativeAd = FBAdUtils.getNativeAd();
+                nativeAd = FBAdUtils.get().getNativeAd();
             }
             if (nativeAd != null && nativeAd.isAdLoaded()) {
                 adFrameLayout.removeAllViews();
-                adFrameLayout.addView(FBAdUtils.setUpItemNativeAdView(activity, nativeAd));
+                adFrameLayout.addView(FBAdUtils.get().setUpItemNativeAdView(activity, nativeAd));
             }
         }
 

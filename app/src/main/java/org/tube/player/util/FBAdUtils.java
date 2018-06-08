@@ -22,6 +22,7 @@ import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
 
 import org.tube.player.App;
+import org.tube.player.R;
 
 import java.util.Random;
 
@@ -31,21 +32,27 @@ import java.util.Random;
 
 public class FBAdUtils {
 
-    private static NativeAdsManager sAds;
+    private NativeAdsManager sAds;
 
-    private static NativeAd sNativeAd;
+    private NativeAd sNativeAd;
 
-    private static volatile boolean isLoadAding = false;
+    private volatile boolean isLoadAding = false;
 
     private static Context sContext;
 
-    private static InterstitialAd sInterstitialAd;
+    private InterstitialAd sInterstitialAd;
 
     public static void init(Context context) {
         sContext = context;
     }
 
-    public static void interstitialLoad(String aid, final FBInterstitialAdListener listener) {
+    private static FBAdUtils sFbAdUtils = new FBAdUtils();
+
+    public static FBAdUtils get() {
+        return sFbAdUtils;
+    }
+
+    public void interstitialLoad(String aid, final FBInterstitialAdListener listener) {
         sInterstitialAd = new InterstitialAd(sContext, aid);
         sInterstitialAd.setAdListener(new InterstitialAdListener() {
             @Override
@@ -94,11 +101,11 @@ public class FBAdUtils {
         sInterstitialAd.loadAd();
     }
 
-    public static boolean isInterstitialLoaded() {
+    public boolean isInterstitialLoaded() {
         return sInterstitialAd != null && sInterstitialAd.isAdLoaded();
     }
 
-    public static void showInterstitial() {
+    public void showInterstitial() {
         try {
             if (sInterstitialAd != null && sInterstitialAd.isAdLoaded() && Utils.isScreenOn()) {
                 sInterstitialAd.show();
@@ -108,7 +115,7 @@ public class FBAdUtils {
         }
     }
 
-    public static void destoryInterstitial() {
+    public void destoryInterstitial() {
         try {
             if (sInterstitialAd != null) {
                 sInterstitialAd.destroy();
@@ -119,27 +126,27 @@ public class FBAdUtils {
         }
     }
 
-    public static void loadFBAds(String adid) {
+    public void loadFBAds(String adid) {
         sAds = new NativeAdsManager(sContext, adid, 10);
         sAds.loadAds();
     }
 
-    public static NativeAd nextNativieAd() {
+    public NativeAd nextNativieAd() {
         if (sAds != null && sAds.isLoaded()) {
             return sAds.nextNativeAd();
         }
         return null;
     }
 
-    public static NativeAd getNativeAd() {
+    public NativeAd getNativeAd() {
         return sNativeAd;
     }
 
-    public static void loadAd(String adId) {
+    public void loadAd(String adId) {
         loadAd(adId, null);
     }
 
-    public static void loadAd(String adId, AdListener adListener) {
+    public void loadAd(String adId, AdListener adListener) {
         Log.v("fabad", "loadAd....." + isLoadAding);
         if (isLoadAding) {
             return;
@@ -185,18 +192,18 @@ public class FBAdUtils {
         sNativeAd.loadAd();
     }
 
-    public static void showAdDialog(Activity activity, String adId) {
+    public void showAdDialog(Activity activity, String adId) {
         showAdDialog(activity, adId, null);
     }
 
-    public static void showAdDialog(Activity activity, String adId, Runnable errorCallBack) {
-        NativeAd nativeAd = nextNativieAd();
-        if (nativeAd != null && nativeAd.isAdLoaded()) {
-            View view = setupAdView(nativeAd);
-            showDialog(view, activity);
-            loadAd(adId, null);
-            return;
-        }
+    public void showAdDialog(Activity activity, String adId, Runnable errorCallBack) {
+//        NativeAd nativeAd = nextNativieAd();
+//        if (nativeAd != null && nativeAd.isAdLoaded()) {
+//            View view = setupAdView(nativeAd);
+//            showDialog(view, activity);
+//            loadAd(adId, null);
+//            return;
+//        }
 
         loadAd(adId, new AdListener() {
             @Override
@@ -228,7 +235,7 @@ public class FBAdUtils {
         });
     }
 
-    private static void showDialog(View view, Activity activity) {
+    private void showDialog(View view, Activity activity) {
         if (view != null && !activity.isFinishing()) {
             try {
                 final MaterialDialog dialog = new MaterialDialog.Builder(activity)
@@ -256,7 +263,7 @@ public class FBAdUtils {
         }
     }
 
-    private static View setupAdView(NativeAd nativeAd) {
+    private View setupAdView(NativeAd nativeAd) {
         try {
             View currentAdView = LayoutInflater.from(sContext)
                     .inflate(org.tube.player.R.layout.fb_big_ad_layout, null);
@@ -297,13 +304,12 @@ public class FBAdUtils {
         }
     }
 
-    public static View setUpItemNativeAdView(Activity activity, NativeAd nativeAd) {
+    public View setUpItemNativeAdView(Activity activity, NativeAd nativeAd) {
         return setUpItemNativeAdView(activity, nativeAd, false);
     }
 
-    private static int DRAWABLEIDS []= {org.tube.player.R.drawable.fb_ad_bg1, org.tube.player.R.drawable.fb_ad_bg2, org.tube.player.R.drawable.fb_ad_bg3, org.tube.player.R.drawable.fb_ad_bg4 };
 
-    public static View setUpItemNativeAdView(Activity activity, NativeAd nativeAd, boolean smallItem) {
+    public View setUpItemNativeAdView(Activity activity, NativeAd nativeAd, boolean smallItem) {
         nativeAd.unregisterView();
 
         View adView = LayoutInflater.from(activity).inflate(org.tube.player.R.layout.fb_ad_list_item, null);
@@ -317,8 +323,7 @@ public class FBAdUtils {
         } else {
             nativeAdIcon = adView.findViewById(org.tube.player.R.id.image_ad);
             imageAdFrame.setVisibility(View.VISIBLE);
-            imageAdFrame.setBackground(ContextCompat.getDrawable(activity,
-                    (DRAWABLEIDS[new Random().nextInt(DRAWABLEIDS.length)])));
+            imageAdFrame.setBackground(ContextCompat.getDrawable(activity, R.drawable.fb_ad_bg33));
             adView.findViewById(org.tube.player.R.id.image_ad2).setVisibility(View.GONE);
         }
 

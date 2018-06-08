@@ -14,9 +14,11 @@ public class Constants {
     public static final int NO_SERVICE_ID = -1;
 
 
-    public static final String FB_NATIVE_AD = "1491648374296803_1491649294296711";
-    public static final String FB_CHAPING_AD = "1491648374296803_1491648870963420";
-    public static final String FB_RECT_AD = "1491648374296803_1491651034296537";
+    public static final String FB_NATIVE_AD = "241833763234812_241834576568064";
 
-    public static final String FB_CHANPING_HIGH_AD = "1491648374296803_1492489397546034";
+    public static final String FB_NATIVE_DIALOG = "241833763234812_241834799901375";
+
+    public static final String FB_CHAPING_AD = "241833763234812_241835186568003";
+
+    public static final String FB_CHANPING_HIGH_AD = "241833763234812_241835239901331";
 }

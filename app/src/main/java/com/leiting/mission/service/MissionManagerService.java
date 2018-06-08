@@ -135,12 +135,12 @@ public class MissionManagerService extends Service {
         RatingActivity.setRatingClickListener(new RatingActivity.RatingClickListener() {
             @Override
             public void onClickFiveStart() {
-                FacebookReport.logSentRating("five star");
+                FacebookReport.logSentRating("five_star");
             }
 
             @Override
             public void onClickReject() {
-                FacebookReport.logSentRating("no star");
+                FacebookReport.logSentRating("no_star");
             }
         });
 

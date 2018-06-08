@@ -57,11 +57,11 @@ public class MissionActivity extends AppCompatActivity {
             }
         });
 
-        FBAdUtils.interstitialLoad(Constants.FB_CHAPING_AD, new FBAdUtils.FBInterstitialAdListener(){
+        FBAdUtils.get().interstitialLoad(Constants.FB_CHAPING_AD, new FBAdUtils.FBInterstitialAdListener(){
             @Override
             public void onInterstitialDismissed(Ad ad) {
                 super.onInterstitialDismissed(ad);
-                FBAdUtils.destoryInterstitial();
+                FBAdUtils.get().destoryInterstitial();
             }
         });
     }
@@ -89,10 +89,10 @@ public class MissionActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (FBAdUtils.isInterstitialLoaded()) {
-            FBAdUtils.showInterstitial();
+        if (FBAdUtils.get().isInterstitialLoaded()) {
+            FBAdUtils.get().showInterstitial();
         }
-        FBAdUtils.destoryInterstitial();
+        FBAdUtils.get().destoryInterstitial();
     }
 
     private void updateFragments() {

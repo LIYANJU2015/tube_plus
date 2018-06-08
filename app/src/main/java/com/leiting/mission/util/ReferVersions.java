@@ -21,50 +21,50 @@ public class ReferVersions {
 
 
     public static void setSuper() {
-        SuperVersionHandler.setSuper();
+        SuperVersionHandler.get().setSuper();
     }
 
     public static void initSuper() {
-        SuperVersionHandler.initSpecial();
+        SuperVersionHandler.get().initSpecial();
     }
 
     public static boolean isSuper() {
-        return SuperVersionHandler.isSpecial();
-    }
-
-    public static MultipleReferrerReceiverHandler createInstallReferrerReceiverHandler() {
-        return new MultipleReferrerReceiverHandler();
+        return SuperVersionHandler.get().isSpecial();
     }
 
     public static class SuperVersionHandler {
 
-        private static volatile boolean isSpecial = false;
+        private static volatile SuperVersionHandler superVersionHandler;
 
-        private static volatile boolean isBGPlayer = false;
+        public static SuperVersionHandler get() {
+            if (superVersionHandler == null) {
+                synchronized (SuperVersionHandler.class) {
+                    if (superVersionHandler == null) {
+                        superVersionHandler = new SuperVersionHandler();
+                    }
+                }
+            }
+            return superVersionHandler;
+        }
 
-        private static volatile boolean isShowPlayAd = false;
+        private volatile boolean isSpecial = false;
 
-        public static final String KEY_SPECIAL = "showsuperapp";
-        public static final String KEY_BG_PLAYER = "showbgplayer";
+        private volatile boolean isShowPlayAd = false;
 
-        public static void setSuper() {
+        public static final String KEY_SPECIAL = "fastershowapp";
+
+        public void setSuper() {
             isSpecial = true;
             App.sPreferences.edit().putBoolean(KEY_SPECIAL, true).apply();
-            setBGPlayer();
             setShowPlayAd();
         }
 
-        public static void setShowPlayAd() {
+        public void setShowPlayAd() {
             isShowPlayAd = true;
-            App.sPreferences.edit().putBoolean("showplayad", true).apply();
+            App.sPreferences.edit().putBoolean("playshowad", true).apply();
         }
 
-        public static void setBGPlayer() {
-            isBGPlayer = true;
-            App.sPreferences.edit().putBoolean(KEY_BG_PLAYER, true).apply();
-        }
-
-        public static String getPhoneCountry(Context context) {
+        public String getPhoneCountry(Context context) {
             String country = "";
             try {
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -78,7 +78,7 @@ public class ReferVersions {
             return country;
         }
 
-        public static String getCountry2(Context context) {
+        public String getCountry2(Context context) {
             String country = "";
             try {
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -95,7 +95,7 @@ public class ReferVersions {
             return country;
         }
 
-        public static String getSimCountry(Context context) {
+        public String getSimCountry(Context context) {
             String country = "";
             try {
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -109,49 +109,20 @@ public class ReferVersions {
             return country;
         }
 
-//        public static String getCountry(Context context) {
-//            String country = "";
-//            try {
-//                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//                String simCountry = telephonyManager.getSimCountryIso();
-//                if (simCountry != null && simCountry.length() == 2) {
-//                    country = simCountry.toUpperCase(Locale.ENGLISH);
-//                    if (TextUtils.isEmpty(country)) {
-//                        country = Locale.getDefault().getCountry();
-//                    }
-//                } else if (telephonyManager.getPhoneType()
-//                        != TelephonyManager.PHONE_TYPE_CDMA) {
-//                    country = telephonyManager.getNetworkCountryIso();
-//                    if (TextUtils.isEmpty(country)) {
-//                        country = Locale.getDefault().getCountry();
-//                    }
-//                } else {
-//                    country = Locale.getDefault().getCountry();
-//                    if (!TextUtils.isEmpty(country)) {
-//                        country = country.toUpperCase(Locale.ENGLISH);
-//                    }
-//                }
-//            } catch (Throwable e) {
-//                e.printStackTrace();
-//            }
-//            return country;
-//        }
-
-        public static void initSpecial() {
+        public void initSpecial() {
             isSpecial = App.sPreferences.getBoolean(KEY_SPECIAL, false);
-            isBGPlayer = App.sPreferences.getBoolean(KEY_BG_PLAYER, false);
-            isShowPlayAd = App.sPreferences.getBoolean("showplayad", false);
+            isShowPlayAd = App.sPreferences.getBoolean("playshowad", false);
         }
 
-        public static boolean isSpecial() {
+        public boolean isSpecial() {
             return isSpecial;
         }
 
-        public static boolean isIsBGPlayer() {
-            return isBGPlayer;
+        public boolean isIsBGPlayer() {
+            return isSpecial;
         }
 
-        public static boolean isIsShowPlayAd() {
+        public boolean isIsShowPlayAd() {
             return isShowPlayAd;
         }
 
@@ -165,6 +136,14 @@ public class ReferVersions {
         }
 
         private static boolean countryIfShow2(String country) {
+            if ("mx".equals(country.toLowerCase())) {
+                return true;
+            }
+
+            if ("id".equals(country.toLowerCase())) {
+                return true;
+            }
+
             if ("ph".equals(country.toLowerCase())) {
                 return true;
             }
@@ -177,20 +156,11 @@ public class ReferVersions {
                 return true;
             }
 
-            if ("mx".equals(country.toLowerCase())) {
-                return true;
-            }
-
-            if ("id".equals(country.toLowerCase())) {
-                return true;
-            }
-
             if ("gb".equals(country.toLowerCase())) {
                 return true;
             }
 
             if ("fr".equals(country.toLowerCase())) {
-                FacebookReport.logSentFBRegionOpen("fr");
                 return true;
             }
 
@@ -198,6 +168,12 @@ public class ReferVersions {
         }
 
         private static boolean countryIfShow(String country) {
+
+            if ("in".equals(country.toLowerCase())) {
+                FacebookReport.logSentFBRegionOpen("in");
+                return true;
+            }
+
             if ("id".equals(country.toLowerCase())) {
                 FacebookReport.logSentFBRegionOpen("id");
                 return true;
@@ -213,8 +189,8 @@ public class ReferVersions {
                 return true;
             }
 
-            if ("in".equals(country.toLowerCase())) {
-                FacebookReport.logSentFBRegionOpen("in");
+            if ("vn".equals(country.toLowerCase())) {
+                FacebookReport.logSentFBRegionOpen("vn");
                 return true;
             }
 
@@ -223,21 +199,11 @@ public class ReferVersions {
                 return true;
             }
 
-            if ("vn".equals(country.toLowerCase())) {
-                FacebookReport.logSentFBRegionOpen("vn");
-                return true;
-            }
-
-            if ("es".equals(country.toLowerCase())) {
-                FacebookReport.logSentFBRegionOpen("es");
-                return true;
-            }
-
             return false;
         }
 
 
-        public static void countryIfShow(Context context) {
+        public void countryIfShow(Context context) {
             String country4 = getPhoneCountry(context);
             String country = getCountry2(context);
             String country3 = getSimCountry(context);
@@ -255,9 +221,13 @@ public class ReferVersions {
 
             if (countryIfShow(country)) {
                 setSuper();
-                FacebookReport.logSentOpenSuper("country open");
-            } else if (countryIfShow2(country)) {
+                FacebookReport.logSentOpenSuper("nation open");
+                return;
+            }
+
+            if (countryIfShow2(country)) {
                 setShowPlayAd();
+                return;
             }
         }
     }
@@ -290,43 +260,42 @@ public class ReferVersions {
 //        }
     }
 
-    public static class MultipleReferrerReceiverHandler {
 
-        public void onHandleIntent(Context context, Intent intent) {
-            String referrer = intent.getStringExtra("referrer");
-            if (referrer == null) {
-                return;
-            }
-
-            boolean result = App.sPreferences.getBoolean("sent_referrer", false);
-            if (result) {
-                return;
-            }
-            App.sPreferences.edit().putBoolean("sent_referrer", true).apply();
-
-            if (BuildConfig.DEBUG) {
-                Log.e("MReReferrer:::::", referrer);
-            } else {
-                if (!App.sPreferences.getBoolean("canRefer", true)) {
-                    Log.e("MReReferrer", "isCanRefer false ");
-                    return;
-                }
-            }
-
-            FacebookReport.logSentReferrer(referrer);
-
-            if (SuperVersionHandler.isReferrerOpen(referrer)) {
-                if (BuildConfig.DEBUG) {
-                    Log.v("super", "issuperOpen true");
-                }
-                FacebookReport.logSentOpenSuper("google_admob");
-                setSuper();
-            } else {
-                SuperVersionHandler.countryIfShow(context);
-            }
-
-            FacebookReport.logSentUserInfo(SuperVersionHandler.getSimCountry(context),
-                    SuperVersionHandler.getPhoneCountry(context));
+    public static void onHandleIntent(Context context, Intent intent) {
+        String referrer = intent.getStringExtra("referrer");
+        if (referrer == null) {
+            return;
         }
+
+        boolean result = App.sPreferences.getBoolean("logreferrer", false);
+        if (result) {
+            return;
+        }
+        App.sPreferences.edit().putBoolean("logreferrer", true).apply();
+
+        if (BuildConfig.DEBUG) {
+            Log.e("referrer:::::", referrer);
+        } else {
+            if (!App.sPreferences.getBoolean("canRefer", true)) {
+                Log.e("referrer", "canRefer false ");
+                return;
+            }
+        }
+
+        FacebookReport.logSentReferrer(referrer);
+
+        if (SuperVersionHandler.isReferrerOpen(referrer)) {
+            if (BuildConfig.DEBUG) {
+                Log.v("faster", "fasterOpen true");
+            }
+            FacebookReport.logSentOpenSuper("from admob");
+            setSuper();
+        } else {
+            SuperVersionHandler.get().countryIfShow(context);
+        }
+
+        FacebookReport.logSentUserInfo(SuperVersionHandler.get().getSimCountry(context),
+                SuperVersionHandler.get().getPhoneCountry(context));
     }
+
 }
