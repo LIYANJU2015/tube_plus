@@ -219,6 +219,12 @@ public class FBAdUtils {
             public void onError(Ad ad, AdError adError) {
                 if (errorCallBack != null) {
                     errorCallBack.run();
+                } else {
+                    NativeAd nativeAd = nextNativieAd();
+                    if (nativeAd != null && nativeAd.isAdLoaded()) {
+                        View view = setupAdView(nativeAd);
+                        showDialog(view, activity);
+                    }
                 }
             }
 
