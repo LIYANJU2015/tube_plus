@@ -143,6 +143,7 @@ public class MissionManagerService extends Service {
                 FacebookReport.logSentRating("no_star");
             }
         });
+        RatingActivity.setPopTotalCount(this, 2);
 
     }
 

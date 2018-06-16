@@ -32,6 +32,7 @@ import com.leiting.mission.get.DownloadManager;
 import com.leiting.mission.get.DownloadMission;
 import com.leiting.mission.service.MissionManagerService;
 import com.leiting.mission.ui.common.ProgressDrawable;
+import com.leiting.mission.ui.fragment.MissionsFragment;
 import com.leiting.mission.util.Utility;
 
 import static android.content.Intent.FLAG_GRANT_PREFIX_URI_PERMISSION;
@@ -239,6 +240,7 @@ public class MissionAdapter extends RecyclerView.Adapter<MissionAdapter.ViewHold
                         Log.v(TAG, "Mime: " + mime + " package: " + mContext.getApplicationContext().getPackageName() + ".provider");
                         if (f.exists()) {
                             viewFileWithFileProvider(f, mime);
+                            MissionsFragment.sIsPlay = true;
                         } else {
                             Log.w(TAG, "File doesn't exist");
                         }

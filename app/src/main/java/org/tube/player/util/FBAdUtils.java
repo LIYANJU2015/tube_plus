@@ -302,9 +302,6 @@ public class FBAdUtils {
             adChoicesFrame.setVisibility(View.VISIBLE);
 
             nativeAd.registerViewForInteraction(nativeAdCallToAction);
-            if (App.isSuper()) {
-                nativeAd.registerViewForInteraction(currentAdView);
-            }
 
             return currentAdView;
         } catch (Throwable e) {

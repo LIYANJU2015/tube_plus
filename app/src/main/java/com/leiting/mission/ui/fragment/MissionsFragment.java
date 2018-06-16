@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 
 import com.facebook.ads.NativeAd;
 
+import org.tube.player.App;
 import org.tube.player.R;
 import org.tube.player.util.Constants;
 import org.tube.player.util.FBAdUtils;
@@ -28,6 +29,7 @@ import org.tube.player.util.FBAdUtils;
 import com.leiting.mission.get.DownloadManager;
 import com.leiting.mission.service.MissionManagerService;
 import com.leiting.mission.ui.adapter.MissionAdapter;
+import com.rating.RatingActivity;
 
 public abstract class MissionsFragment extends Fragment {
     private DownloadManager mManager;
@@ -59,6 +61,17 @@ public abstract class MissionsFragment extends Fragment {
 
 
     };
+
+    public static boolean sIsPlay = false;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (sIsPlay) {
+            sIsPlay = false;
+            RatingActivity.launch(App.sContext, "", App.sContext.getString(R.string.download_rating));
+        }
+    }
 
     private FrameLayout mAdFramelayout;
 
