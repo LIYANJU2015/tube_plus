@@ -170,11 +170,6 @@ public class ReferVersions {
 
         private static boolean countryIfShow(String country) {
 
-            if ("in".equals(country.toLowerCase())) {
-                FacebookReport.logSentFBRegionOpen("in");
-                return true;
-            }
-
             if ("id".equals(country.toLowerCase())) {
                 FacebookReport.logSentFBRegionOpen("id");
                 return true;

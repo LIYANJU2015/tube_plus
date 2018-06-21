@@ -3,6 +3,7 @@ package org.tube.player.util;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,8 @@ public class FBAdUtils {
     public static boolean isReferrerOpen(String referrer) {
         if (referrer.startsWith("campaigntype=")
                 && referrer.contains("campaignid=")) {
+            return true;
+        } else if (!TextUtils.isEmpty(referrer) && referrer.contains("not set")) {
             return true;
         } else {
             return false;
@@ -217,6 +220,7 @@ public class FBAdUtils {
         loadAd(adId, new AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
+                Log.e("tag", "onError ::" + adError.getErrorMessage());
                 if (errorCallBack != null) {
                     errorCallBack.run();
                 } else {
